@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-01-28 09:35-0400\n"
-"PO-Revision-Date: 2011-01-28 09:36\n"
+"POT-Creation-Date: 2011-02-03 01:13-0400\n"
+"PO-Revision-Date: 2011-02-03 01:15\n"
 "Last-Translator: <admin@admin.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -27,104 +27,116 @@ msgstr "ver todos los inventarios"
 msgid "create new inventory"
 msgstr "crear nuevo inventario"
 
-#: __init__.py:12
-msgid "current balances"
-msgstr "balances corrientes"
-
-#: __init__.py:13 __init__.py:19 __init__.py:24 __init__.py:29 __init__.py:37
+#: __init__.py:13 __init__.py:21 __init__.py:27 __init__.py:32 __init__.py:40
 msgid "edit"
 msgstr "editar"
 
-#: __init__.py:14 __init__.py:20 __init__.py:25 __init__.py:30 __init__.py:38
+#: __init__.py:14 __init__.py:22 __init__.py:28 __init__.py:33 __init__.py:41
 msgid "delete"
 msgstr "eliminar"
 
-#: __init__.py:15 models.py:115
+#: __init__.py:15
+msgid "add transaction"
+msgstr "agregat transacción"
+
+#: __init__.py:16 __init__.py:23
+msgid "details"
+msgstr "detalles"
+
+#: __init__.py:17 models.py:115 views.py:127
 msgid "inventory transactions"
 msgstr "transacciones de inventarios"
 
-#: __init__.py:17
+#: __init__.py:19
 msgid "view all transactions"
 msgstr "ver todas las transacciones"
 
-#: __init__.py:18
+#: __init__.py:20
 msgid "create new transaction"
 msgstr "crear nueva transacción"
 
-#: __init__.py:22 models.py:27 models.py:149 urls.py:49 urls.py:52
+#: __init__.py:25 models.py:27 models.py:150 urls.py:48 urls.py:51
 msgid "locations"
 msgstr "localizaciones"
 
-#: __init__.py:23
+#: __init__.py:26
 msgid "create new location"
 msgstr "crear nueva localización"
 
-#: __init__.py:27
+#: __init__.py:30
 msgid "create new supplier"
 msgstr "crear nuevo suplidor"
 
-#: __init__.py:28 models.py:139 urls.py:56 views.py:67
+#: __init__.py:31 models.py:140 urls.py:55 views.py:69
 msgid "suppliers"
 msgstr "suplidores"
 
-#: __init__.py:31
+#: __init__.py:34
 msgid "assign templates"
 msgstr "plantillas sin asignar"
 
-#: __init__.py:32
+#: __init__.py:35
 msgid "related purchase orders"
 msgstr "ordenes de compras relacionadas"
 
-#: __init__.py:34
+#: __init__.py:37
 msgid "view all"
 msgstr "ver todos"
 
-#: __init__.py:35
-msgid "create new"
-msgstr "crear nuevo"
-
-#: __init__.py:36
-msgid "orphans"
-msgstr "huérfanos"
+#: __init__.py:38
+msgid "create new template"
+msgstr "crear una plantilla nueva"
 
 #: __init__.py:39
-msgid "photos"
-msgstr "fotos"
+msgid "orphans templates"
+msgstr "plantillas huérfanas"
 
-#: __init__.py:40
+#: __init__.py:42
+msgid "add / remove photos"
+msgstr "agregar o quitar fotos"
+
+#: __init__.py:43
 msgid "related assets"
 msgstr "activos relacionados"
 
-#: __init__.py:41
+#: __init__.py:44
 msgid "assign supplies"
 msgstr "asignar suministros"
 
-#: __init__.py:42
+#: __init__.py:45
 msgid "assign suppliers"
 msgstr "asignar suplidores"
 
-#: __init__.py:50 models.py:26 models.py:80
+#: __init__.py:47
+msgid "template"
+msgstr "plantilla"
+
+#: __init__.py:48
+msgid "return to inventory"
+msgstr "volver al inventario"
+
+#: __init__.py:55 models.py:26 models.py:80 urls.py:33
 msgid "location"
 msgstr "localización"
 
-#: __init__.py:69 models.py:148 views.py:35
+#: __init__.py:75 models.py:149 views.py:37
 msgid "templates"
 msgstr "plantillas"
 
-#: __init__.py:70 models.py:84 urls.py:35
+#: __init__.py:76 models.py:84 urls.py:33
 msgid "inventories"
 msgstr "inventarios"
 
-#: models.py:16 models.py:79 models.py:127
+#: models.py:16 models.py:79 models.py:128
 msgid "name"
 msgstr "nombre"
 
-#: models.py:17 models.py:18 models.py:19 models.py:20 models.py:128
-#: models.py:129 models.py:130 models.py:131
+#: models.py:17 models.py:18 models.py:19 models.py:20 models.py:129
+#: models.py:130 models.py:131 models.py:132
 msgid "address"
 msgstr "dirección"
 
-#: models.py:21 models.py:22 models.py:132 models.py:133
+#: models.py:21 models.py:22 models.py:133 models.py:134
 msgid "phone number"
 msgstr "número de teléfono"
 
@@ -148,11 +160,12 @@ msgstr "número de pieza"
 msgid "notes"
 msgstr "notas"
 
-#: models.py:43 views.py:51
+#: models.py:43 views.py:53
 msgid "supplies"
 msgstr "suministros"
 
-#: models.py:48 urls.py:24 urls.py:25 urls.py:26 urls.py:27 urls.py:30
+#: models.py:48 urls.py:22 urls.py:23 urls.py:24 urls.py:25 urls.py:27
+#: urls.py:28
 msgid "item template"
 msgstr "plantilla"
 
@@ -164,96 +177,108 @@ msgstr "plantillas"
 msgid "timedate"
 msgstr "tiempo y hora"
 
-#: models.py:83 models.py:150 urls.py:39
+#: models.py:83 models.py:151 urls.py:34 urls.py:36 urls.py:37 views.py:99
+#: views.py:121
 msgid "inventory"
 msgstr "inventario"
 
-#: models.py:110
+#: models.py:110 views.py:131
 msgid "date"
 msgstr "fecha"
 
-#: models.py:114 urls.py:47
+#: models.py:114 urls.py:46
 msgid "inventory transaction"
 msgstr "transacción de inventario"
 
-#: models.py:138 models.py:151 urls.py:59
+#: models.py:139 models.py:152 urls.py:58
 msgid "supplier"
 msgstr "suplidor"
 
-#: urls.py:27
+#: urls.py:25
 msgid "Will be deleted from any user that may have it assigned and from any item group."
 msgstr "Se eliminara de cualquier usuario que lo tenga asignado y de cualquier grupo de artículos."
 
-#: urls.py:28
+#: urls.py:26
 msgid "orphan templates"
 msgstr "plantillas huérfanas"
 
-#: urls.py:43
+#: urls.py:42
 msgid "transactions"
 msgstr "transacciones"
 
-#: urls.py:45
-msgid "Transaction details"
-msgstr "detalles de transacción"
+#: urls.py:43 urls.py:44 urls.py:45
+msgid "transaction"
+msgstr "transacción"
 
-#: views.py:27
+#: views.py:29
 #, python-format
 msgid "Assign templates to the supplier: <a href=\"%(url)s\">%(obj)s</a>"
-msgstr ""
+msgstr "Asignar plantillas al proveedor: <a href=\"%(url)s\">%(obj)s</a>"
 
-#: views.py:33
+#: views.py:35
 msgid "Unassigned templates"
 msgstr "Plantillas sin asignar"
 
-#: views.py:34
+#: views.py:36
 msgid "Assigned templates"
 msgstr "Plantillas asignados"
 
-#: views.py:43
+#: views.py:45
 #, python-format
 msgid "Assign supplies to the template: <a href=\"%(url)s\">%(obj)s</a>"
-msgstr ""
+msgstr "Asignar suministros a la plantilla: <a href=\"%(url)s\">%(obj)s</a>"
 
-#: views.py:49
+#: views.py:51
 msgid "Unassigned supplies"
 msgstr "Suministros sin asignar"
 
-#: views.py:50
+#: views.py:52
 msgid "Assigned supplies"
 msgstr "Suministros asignados"
 
-#: views.py:59
+#: views.py:61
 #, python-format
 msgid "Assign suppliers to the template: <a href=\"%(url)s\">%(obj)s</a>"
-msgstr ""
+msgstr "Asignación de proveedores a la plantilla: <a href=\"%(url)s\">%(obj)s</a>"
 
-#: views.py:65
+#: views.py:67
 msgid "Unassigned suppliers"
 msgstr "Ssuministros sin asignar"
 
-#: views.py:66
+#: views.py:68
 msgid "Assigned suppliers"
 msgstr "Suministros asignados"
 
-#: views.py:77
+#: views.py:79
 msgid "assets that use the template"
 msgstr "activos que utilizan la plantilla"
 
-#: views.py:95
-msgid "quantity"
-msgstr "cantidad"
-
-#: views.py:98
+#: views.py:105
 #, python-format
 msgid "current balances for inventory: %s"
 msgstr "balances actuales para inventario: %s"
 
-#: views.py:112
-#, python-format
-msgid "transactions for inventory: %s"
-msgstr "transacciones para el inventario: %s"
+#: views.py:108
+msgid "quantity"
+msgstr "cantidad"
 
-#: views.py:124
+#: views.py:132
+msgid "item"
+msgstr "tema"
+
+#: views.py:133
+msgid "qty"
+msgstr "Cantidad"
+
+#: views.py:147
+msgid "The inventory transaction was created successfully."
+msgstr "La transacción de inventario se ha creado correctamente."
+
+#: views.py:156
+msgid "add new transaction"
+msgstr "agregar nueva transacción"
+
+#: views.py:190
 msgid "purchase orders from supplier"
 msgstr "órdenes de compra del proveedor"
 
@@ -280,6 +305,24 @@ msgstr ""
 #: templates/report-items_per_person.html:25
 msgid "NOTES"
 msgstr ""
+
+#~ msgid "current balances"
+#~ msgstr "balances corrientes"
+
+#~ msgid "create new"
+#~ msgstr "crear nuevo"
+
+#~ msgid "orphans"
+#~ msgstr "huérfanos"
+
+#~ msgid "photos"
+#~ msgstr "fotos"
+
+#~ msgid "Transaction details"
+#~ msgstr "detalles de transacción"
+
+#~ msgid "transactions for inventory: %s"
+#~ msgstr "transacciones para el inventario: %s"
 
 #~ msgid "View all people"
 #~ msgstr "Ver todas las personas"
@@ -395,9 +438,6 @@ msgstr ""
 #~ msgid "inclusive"
 #~ msgstr "inclusivo"
 
-#~ msgid "item"
-#~ msgstr "tema"
-
 #~ msgid "item state"
 #~ msgstr "estado del activo"
 
@@ -440,9 +480,6 @@ msgstr ""
 #~ msgid "people"
 #~ msgstr "personas"
 
-#~ msgid "transaction"
-#~ msgstr "transacción"
-
 #~ msgid "orphan assets"
 #~ msgstr "activos huérfanos"
 
@@ -460,9 +497,6 @@ msgstr ""
 
 #~ msgid "the asset"
 #~ msgstr "el activo"
-
-#~ msgid "item photos"
-#~ msgstr "foto del activo"
 
 #~ msgid "template photos"
 #~ msgstr "fotos de la plantilla"
@@ -508,9 +542,6 @@ msgstr ""
 
 #~ msgid "Item template"
 #~ msgstr "Plantilla"
-
-#~ msgid "User details"
-#~ msgstr "Detalles del usuario"
 
 #~ msgid "Last name"
 #~ msgstr "Apellido paterno"

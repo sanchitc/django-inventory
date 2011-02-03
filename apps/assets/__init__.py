@@ -14,7 +14,7 @@ person_list = {'text':_('view all people'), 'view':'person_list', 'famfam':'user
 person_create = {'text':_('create new person'), 'view':'person_create', 'famfam':'user_add'}
 person_update = {'text':_(u'edit'), 'view':'person_update', 'args':'object.id', 'famfam':'user_edit'}
 person_delete = {'text':_(u'delete'), 'view':'person_delete', 'args':'object.id', 'famfam':'user_delete'}
-person_photos = {'text':_(u'add /remove photos'), 'view':'person_photos', 'args':'object.id', 'famfam':'picture_edit'}
+person_photos = {'text':_(u'add / remove photos'), 'view':'person_photos', 'args':'object.id', 'famfam':'picture_edit'}
 person_assign_item = {'text':_(u'assign assets'), 'view':'person_assign_item', 'args':'object.id', 'famfam':'computer_go'}
 
 asset_list = {'text':_('view all assets'), 'view':'item_list', 'famfam':'computer'}

@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-01-28 09:28-0400\n"
-"PO-Revision-Date: 2011-01-28 09:31\n"
+"POT-Creation-Date: 2011-02-03 01:12-0400\n"
+"PO-Revision-Date: 2011-02-03 01:13\n"
 "Last-Translator: <admin@admin.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -53,99 +53,111 @@ msgstr "Hubo %s errores."
 msgid "Only CSV files are valid uploads."
 msgstr "Solo se permite subir archivos tipo CSV."
 
-#: forms.py:61
+#: forms.py:67
 msgid "Local document"
 msgstr "Documento local"
 
-#: forms.py:62
+#: forms.py:68
 msgid "Model"
 msgstr "Modelo"
 
-#: forms.py:62
+#: forms.py:68
 msgid "Model that will receive the data."
 msgstr "Modelo que recibira los datos."
 
-#: forms.py:69
-msgid "import preview"
-msgstr "vista previa de importación"
-
-#: forms.py:72
+#: forms.py:74
 msgid "Preview"
 msgstr "Prevista"
 
-#: forms.py:73
+#: forms.py:75
 msgid "Start row"
 msgstr "Linea inicial"
 
-#: forms.py:74
+#: forms.py:76
 msgid "Delimiter"
 msgstr "Delimitador"
 
-#: forms.py:74
+#: forms.py:76
 msgid "A one-character string used to separate fields. It defaults to \",\"."
 msgstr "Una cadena de un carácter utilizado para separar los campos. Por defecto es \",\"."
 
-#: forms.py:75
+#: forms.py:77
 msgid "Quote character"
 msgstr "Carácter de cita"
 
-#: forms.py:75
+#: forms.py:77
 msgid "A one-character string used to quote fields containing special characters, such as the delimiter or quote character, or which contain new-line characters. It defaults to \"."
 msgstr "Una cadena de un carácter utilizado para citar a los campos que contienen caracteres especiales, tales como el carácter delimitador o de cita, o que contengan caracteres de nueva línea. Por defecto es \"."
 
-#: forms.py:76
+#: forms.py:78
 msgid "Doublequote"
 msgstr "Doble comilla"
 
-#: forms.py:76
+#: forms.py:78
 msgid "Controls how instances of the quote character appearing inside a field should be themselves be quoted. When True, the character is doubled. When False, the escape character is used as a prefix to the quote character. It defaults to True."
 msgstr "Controla cómo las instancias del carácter de comillas que aparecen dentro de un campo debe ser ellos mismos citados. Cuando esta encendida esta opción, el carácter se duplica. De lo contrario, el carácter de escape se usa como prefijo el carácter de comillas. Por defecto es encendido."
 
-#: forms.py:77
+#: forms.py:79
 msgid "Escape character"
 msgstr "Carácter de escape"
 
-#: forms.py:77
+#: forms.py:79
 msgid "The escape character removes any special meaning from the following character. It defaults to None, which disables escaping."
 msgstr "El carácter de escape quita cualquier significado especial del carácter siguiente. Su valor predeterminado es vacio, que desactiva el escape."
 
-#: forms.py:78
+#: forms.py:80
 msgid "Skip initial space"
 msgstr "Saltar espacio inicial"
 
-#: forms.py:78
+#: forms.py:80
 msgid "When True, whitespace immediately following the delimiter is ignored. The default is False."
 msgstr "Cuando se enciende, los espacios en blanco inmediatamente después del delimitador se ignoran. El valor predeterminado es apagado."
 
-#: forms.py:85
+#: forms.py:84
 msgid "Model field"
 msgstr "Campo del modelo"
 
-#: forms.py:86
+#: forms.py:85
 msgid "Expression"
 msgstr "Expresión"
 
-#: forms.py:87
+#: forms.py:86
 msgid "Arguments"
 msgstr "Argumentos"
 
-#: forms.py:88
+#: forms.py:87
 msgid "Enabled"
 msgstr "Habilitado"
 
-#: forms.py:93 forms.py:96
+#: forms.py:92 forms.py:95
 msgid "import results"
 msgstr "Resultados de la importación"
 
-#: forms.py:101
+#: forms.py:100
 msgid "Results"
 msgstr "Resultados"
 
-#: forms.py:161
+#: forms.py:127
+msgid "step 1 of 4: Import preview"
+msgstr "paso 1 de 4: Vista previa de importación"
+
+#: forms.py:128
+msgid "step 2 of 4: expressions"
+msgstr "paso 2 de 4: expresiones"
+
+#: forms.py:129
+msgid "step 3 of 4: Import test run results"
+msgstr "paso 3 de 4: Resultados de ejecución de prueba"
+
+#: forms.py:130
+msgid "step 4 of 4: Final import results"
+msgstr "paso 4 de 4: Resultados finales de importación"
+
+#: forms.py:171
 msgid "Import test run results"
 msgstr "Resultados de la importación de prueba"
 
-#: forms.py:169
+#: forms.py:179
 msgid "Final import results"
 msgstr "Resultados de la importación final"
 
@@ -153,23 +165,19 @@ msgstr "Resultados de la importación final"
 msgid "expressions"
 msgstr "expresiones"
 
-#: views.py:60
+#: views.py:68
 msgid "Upload a file to import"
 msgstr "Suba un documento a ser importado"
 
-#: views.py:75
+#: views.py:83
 msgid "There are no settings available to download."
 msgstr "No hay ajustes disponibles para descargar."
 
-#: templates/import_wizard.html:11
-#, python-format
-msgid "Step %(step)s of %(step_count)s"
-msgstr "Paso %(step)s de %(step_count)s"
+#~ msgid "Step %(step)s of %(step_count)s"
+#~ msgstr "Paso %(step)s de %(step_count)s"
 
-#: templates/import_wizard.html:35
-msgid "Next"
-msgstr "Próximo"
+#~ msgid "Next"
+#~ msgstr "Próximo"
 
-#: templates/import_wizard.html:35
-msgid "Finalize"
-msgstr "Finalizar"
+#~ msgid "Finalize"
+#~ msgstr "Finalizar"

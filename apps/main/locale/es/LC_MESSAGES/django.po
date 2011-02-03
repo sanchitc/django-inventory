@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-01-28 09:32-0400\n"
-"PO-Revision-Date: 2011-01-28 09:32\n"
+"POT-Creation-Date: 2011-02-03 01:16-0400\n"
+"PO-Revision-Date: 2011-02-03 01:17\n"
 "Last-Translator: <admin@admin.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -24,14 +24,18 @@ msgid "home"
 msgstr "inicio"
 
 #: __init__.py:15
+msgid "setup"
+msgstr "configuración"
+
+#: __init__.py:22
 msgid "tools"
 msgstr "herramientas"
 
-#: __init__.py:21
+#: __init__.py:23
 msgid "import"
 msgstr "importación"
 
-#: __init__.py:24
+#: __init__.py:26
 msgid "about"
 msgstr "acerca"
 
@@ -43,48 +47,53 @@ msgstr "Acerca de este programa"
 msgid "A Django based inventory and asset management system"
 msgstr "Un sistema de manejo de inventario y activos basado en Django"
 
-#: templates/base.html:20
+#: templates/base.html:24
 msgid "User"
 msgstr "Usuario"
 
-#: templates/base.html:22
+#: templates/base.html:26
 msgid "Anonymous"
 msgstr "Anónimo"
 
-#: templates/base.html:25
+#: templates/base.html:29
 msgid "New password"
 msgstr "Nueva contraseña"
 
-#: templates/base.html:29
+#: templates/base.html:33
 msgid "Admin site"
 msgstr "Sitio administrativo"
 
-#: templates/base.html:40
+#: templates/base.html:44
 msgid "Go"
 msgstr "Ir"
 
-#: templates/base.html:43
+#: templates/base.html:47
 msgid "Login"
 msgstr "Iniciar sesión"
 
-#: templates/base.html:43
+#: templates/base.html:47
 msgid "Logout"
 msgstr "Desconectarse"
 
-#: templates/base.html:70
-msgid "Available actions"
-msgstr "Acciones disponibles"
+#: templates/base.html:76
+#, python-format
+msgid "Actions for %(object_name)s: %(object)s"
+msgstr "Acciones para %(object_name)s: %(object)s "
 
-#: templates/base.html:84
+#: templates/base.html:78
 #, python-format
 msgid "Actions for: %(object)s"
 msgstr "Acciones para: %(object)s "
 
-#: templates/base.html:86
+#: templates/base.html:81
 msgid "Actions"
 msgstr "Acciones"
 
-#: templates/base.html:122
+#: templates/base.html:94
+msgid "Other available actions"
+msgstr "Otras acciones disponibles"
+
+#: templates/base.html:128
 msgid "Please wait..."
 msgstr "Por favor espere..."
 
