@@ -47,3 +47,7 @@ Author
 
 Roberto Rosario - [Twitter](http://twitter.com/#siloraptor) [E-mail](roberto.rosario.gonzalez at gmail)
 
+
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/rosarior/django-inventory/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
