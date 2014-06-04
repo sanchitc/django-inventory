@@ -1,9 +1,8 @@
-from django.conf.urls.defaults import *
+from django.conf.urls import *
 from django.views.generic.simple import direct_to_template
 
-
 urlpatterns = patterns('common.views',
-    url(r'^about/$', direct_to_template, { 'template' : 'about.html'}, 'about'),
+    url(r'^about/$', direct_to_template, {'template' : 'about.html'}, 'about'),
     url(r'^password/change/done/$', 'password_change_done', (), name='password_change_done'),
 )
 

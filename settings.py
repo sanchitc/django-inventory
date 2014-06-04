@@ -2,7 +2,7 @@
 import os
 import sys
 
-PROJECT_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), "./"))
+PROJECT_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), './'))
 
 sys.path.append(os.path.join(PROJECT_ROOT, 'modules'))
 sys.path.append(os.path.join(PROJECT_ROOT, 'customization_apps'))
@@ -25,7 +25,7 @@ MANAGERS = ADMINS
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3', # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': os.path.join(PROJECT_ROOT, "%s.sqlite" % PROJECT_NAME),     # Or path to database file if using sqlite3.
+        'NAME': os.path.join(PROJECT_ROOT, '%s.sqlite' % PROJECT_NAME),     # Or path to database file if using sqlite3.
         'USER': '',                      # Not used with sqlite3.
         'PASSWORD': '',                  # Not used with sqlite3.
         'HOST': '',                      # Set to empty string for localhost. Not used with sqlite3.
@@ -128,10 +128,10 @@ INSTALLED_APPS = [
 
 TEMPLATE_CONTEXT_PROCESSORS = [
     'django.contrib.auth.context_processors.auth',
-    "django.core.context_processors.i18n",
-    "django.core.context_processors.media",
+    'django.core.context_processors.i18n',
+    'django.core.context_processors.media',
     'django.core.context_processors.request',
-    "grappelli.context_processors.admin_template_path",
+    'grappelli.context_processors.admin_template_path',
     'django.contrib.messages.context_processors.messages',
 ]
 
@@ -187,21 +187,21 @@ if DEVELOPMENT:
         import rosetta
         INSTALLED_APPS.append('rosetta')
     except ImportError:
-        print "rosetta is not installed"
+        print 'rosetta is not installed'
 
     try:
         import django_extensions
         INSTALLED_APPS.append('django_extensions')
     except ImportError:
-        print "django_extensions is not installed"
+        print 'django_extensions is not installed'
 
     try:
         import debug_toolbar
         #INSTALLED_APPS.append('debug_toolbar')
     except ImportError:
-        print "debug_toolbar is not installed"
+        print 'debug_toolbar is not installed'
 
-    TEMPLATE_CONTEXT_PROCESSORS.append("django.core.context_processors.debug")
+    TEMPLATE_CONTEXT_PROCESSORS.append('django.core.context_processors.debug')
 
     WSGI_AUTO_RELOAD = True
     if 'debug_toolbar' in INSTALLED_APPS:

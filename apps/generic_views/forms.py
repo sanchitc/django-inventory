@@ -1,13 +1,14 @@
-from django import forms 
+import types
+
+from django import forms
 from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext as _
 from django.db import models
-import types
 
 
 def return_attrib(obj, attrib, arguments=None):
     try:
-        result = reduce(getattr, attrib.split("."), obj)
+        result = reduce(getattr, attrib.split('.'), obj)
         if isinstance(result, types.MethodType):
             if arguments:
                 return result(**arguments)
@@ -17,7 +18,7 @@ def return_attrib(obj, attrib, arguments=None):
             return result
     except Exception, err:
         if settings.DEBUG:
-            return "Attribute error: %s; %s" % (attrib, err)
+            return 'Attribute error: %s; %s' % (attrib, err)
         else:
             pass
 
@@ -26,7 +27,7 @@ class DetailSelectMultiple(forms.widgets.SelectMultiple):
     def __init__(self, queryset=None, *args, **kwargs):
         self.queryset=queryset
         super(DetailSelectMultiple, self).__init__(*args, **kwargs)
-            
+
     def render(self, name, value, attrs=None, choices=()):
         if value is None: value = ''
         #final_attrs = self.build_attrs(attrs, name=name)
@@ -41,7 +42,7 @@ class DetailSelectMultiple(forms.widgets.SelectMultiple):
             if self.choices:
                 if self.choices[0] != (u'', u'---------') and value != []:
                     options = [(index, string) for index, string in self.choices]
-                
+
         if options:
             for index, string in options:
                 if self.queryset:
@@ -100,7 +101,7 @@ class GenericAssignRemoveForm(forms.Form):
 
         self.fields['right_list'].queryset = right_list_qryset
 
-        
+
 class FilterForm(forms.Form):
     def __init__(self, list_filters, *args, **kwargs):
         super(FilterForm, self).__init__(*args, **kwargs)

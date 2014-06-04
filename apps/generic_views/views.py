@@ -11,8 +11,9 @@ from django.utils.translation import ugettext as _
 from django.views.generic.list_detail import object_detail, object_list
 from django.views.generic.create_update import create_object, update_object, delete_object
 
-from forms import FilterForm, GenericConfirmForm, GenericAssignRemoveForm, \
-                  DetailForm
+from .forms import (FilterForm, GenericConfirmForm, GenericAssignRemoveForm,
+    DetailForm)
+
 
 def add_filter(request, list_filters):
     filters = []
@@ -22,12 +23,13 @@ def add_filter(request, list_filters):
         if filter_form.is_valid():
             for name, data in filter_form.cleaned_data.items():
                 if data:
-                    filters.append(Q(**{filter_dict[name]['destination']:data}))
+                    filters.append(Q(**{filter_dict[name]['destination']: data}))
 
-    else:			
+    else:
         filter_form = FilterForm(list_filters)
-            
+
     return filter_form, filters
+
 
 def generic_list(request, list_filters=[], queryset_filter=None, *args, **kwargs):
     if list_filters:
@@ -36,8 +38,9 @@ def generic_list(request, list_filters=[], queryset_filter=None, *args, **kwargs
             kwargs['queryset'] = kwargs['queryset'].filter(*filters)
 
         kwargs['extra_context']['filter_form'] = filter_form
-        
+
     return object_list(request,  template_name='generic_list.html', *args, **kwargs)
+
 
 def generic_delete(*args, **kwargs):
     try:
@@ -49,8 +52,9 @@ def generic_delete(*args, **kwargs):
         kwargs['extra_context']['delete_view'] = True
     else:
         kwargs['extra_context'] = {'delete_view':True}
-  
+
     return delete_object(template_name='generic_confirm.html', *args, **kwargs)
+
 
 def generic_confirm(request, _view, _title=None, _model=None, _object_id=None, _message='', *args, **kwargs):
     if request.method == 'POST':
@@ -62,13 +66,13 @@ def generic_confirm(request, _view, _title=None, _model=None, _object_id=None, _
                 return HttpResponseRedirect(reverse(_view, args=args, kwargs=kwargs))
 
     data = {}
-    
+
     try:
         object = _model.objects.get(pk=kwargs[_object_id])
         data['object'] = object
     except:
         pass
-    
+
     try:
         data['title'] = _title
     except:
@@ -80,10 +84,11 @@ def generic_confirm(request, _view, _title=None, _model=None, _object_id=None, _
         pass
 
     form=GenericConfirmForm()
-        
+
     return render_to_response('generic_confirm.html',
         data,
-        context_instance=RequestContext(request))	
+        context_instance=RequestContext(request))
+
 
 def generic_assign_remove(request, title, obj, left_list_qryset, left_list_title, right_list_qryset, right_list_title, add_method, remove_method, item_name, list_filter=None):
     left_filter = None
@@ -92,27 +97,26 @@ def generic_assign_remove(request, title, obj, left_list_qryset, left_list_title
         filter_form, filters = add_filter(request, list_filter)
         if filters:
             left_filter = filters
-            
 
     if request.method == 'POST':
         post_data = request.POST
         form = GenericAssignRemoveForm(left_list_qryset, right_list_qryset, left_filter, request.POST)
         if form.is_valid():
             action = post_data.get('action','')
-            if action == "assign":
+            if action == 'assign':
                 for item in form.cleaned_data['left_list']:
                     add_method(item)
                 if form.cleaned_data['left_list']:
-                    messages.success(request, _(u"The selected %s were added.") % unicode(item_name))
+                    messages.success(request, _(u'The selected %s were added.') % unicode(item_name))
 
-            if action == "remove":
+            if action == 'remove':
                 for item in form.cleaned_data['right_list']:
                     remove_method(item)
                 if form.cleaned_data['right_list']:
-                    messages.success(request, _(u"The selected %s were removed.") % unicode(item_name))
+                    messages.success(request, _(u'The selected %s were removed.') % unicode(item_name))
 
     form = GenericAssignRemoveForm(left_list_qryset=left_list_qryset, right_list_qryset=right_list_qryset, left_filter=left_filter)
-        
+
     return render_to_response('generic_assign_remove.html', {
     'form':form,
     'object':obj,
@@ -133,10 +137,10 @@ def generic_detail(request, object_id, form_class, queryset, title=None, extra_c
             form = form_class(instance=queryset.get(id=object_id))
     except ObjectDoesNotExist:
         raise Http404
-    
+
     extra_context['form'] = form
     extra_context['title'] = title
-   
+
     return object_detail(
         request,
         template_name='generic_detail.html',

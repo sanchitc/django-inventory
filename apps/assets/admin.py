@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from assets.models import State, ItemState, Item, ItemGroup, Person
+from .models import State, ItemState, Item, ItemGroup, Person
 
 admin.site.register(State)
 admin.site.register(ItemState)
