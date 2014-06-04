@@ -1,8 +1,9 @@
 from django.contrib import admin
 
-from models import PurchaseRequestStatus, PurchaseRequest, \
-        PurchaseRequestItem, PurchaseOrderStatus, PurchaseOrderItemStatus, \
-        PurchaseOrder, PurchaseOrderItem
+from .models import (PurchaseRequestStatus, PurchaseRequest,
+        PurchaseRequestItem, PurchaseOrderStatus, PurchaseOrderItemStatus,
+        PurchaseOrder, PurchaseOrderItem)
+
 
 class PurchaseRequestItemInline(admin.StackedInline):
     model = PurchaseRequestItem
