@@ -1,11 +1,7 @@
-Django==1.2.4
-PIL==1.1.7
-South==0.7.3
-Werkzeug==0.6.2
-distribute==0.6.10
-django-extensions==0.6
-django-photologue==2.3
-django-rosetta==0.5.6
-django-pagination==1.0.7
-wsgiref==0.1.2
-yolk==0.4.1
+# requirements/development.txt
+-r common.txt
+Werkzeug==0.8.3
+django-extensions==0.9
+django-rosetta==0.6.8
+transifex-client==0.10
+django-debug-toolbar==0.9.4
