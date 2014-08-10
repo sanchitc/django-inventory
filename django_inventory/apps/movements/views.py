@@ -2,15 +2,16 @@ from __future__ import absolute_import
 
 import datetime
 
-from django.core.urlresolvers import reverse, reverse_lazy
 from django.contrib import messages
 from django.contrib.contenttypes.models import ContentType
+from django.core.urlresolvers import reverse, reverse_lazy
 from django.forms.formsets import formset_factory
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render_to_response, get_object_or_404, redirect
 from django.template import RequestContext
 from django.utils.translation import ugettext as _
 
+from common.utils import encapsulate
 from generic_views.views import (GenericCreateView, GenericDeleteView,
                                  GenericListView, GenericUpdateView)
 from inventory.models import Supplier, ItemTemplate, InventoryTransaction
@@ -76,7 +77,7 @@ class PurchaseOrderListView(GenericListView):
     extra_context = {
         'title': _(u'Purchase orders'),
         'extra_columns': [
-            {'name': _(u'Active'), 'attribute': lambda x: _(u'Open') if x.active else _(u'Closed')}
+            {'name': _(u'Active'), 'attribute': encapsulate(lambda x: _(u'Open') if x.active else _(u'Closed'))}
         ]
     }
     list_filters = [purchase_order_state_filter]
@@ -125,7 +126,7 @@ class PurchaseRequestListView(GenericListView):
     extra_context = {
         'title': _(u'Purchase requests'),
         'extra_columns': [
-            {'name': _(u'Active'), 'attribute': lambda x: _(u'Open') if x.active else _(u'Closed')}
+            {'name': _(u'Active'), 'attribute': encapsulate(lambda x: _(u'Open') if x.active else _(u'Closed'))}
         ]
     }
     list_filters = [purchase_request_state_filter]
@@ -284,7 +285,7 @@ def purchase_order_wizard(request, object_id):
         messages.error(request, msg, fail_silently=True)
         return redirect(request.META['HTTP_REFERER'] if 'HTTP_REFERER' in request.META else purchase_request.get_absolute_url())
 
-    if not purchase_request.purchaserequestitem_set.all():
+    if not purchase_request.items.all():
         msg = _(u'This purchase request is empty, add items before using the wizard.')
         messages.error(request, msg, fail_silently=True)
         return redirect(request.META['HTTP_REFERER'] if 'HTTP_REFERER' in request.META else purchase_request.get_absolute_url())
@@ -295,7 +296,7 @@ def purchase_order_wizard(request, object_id):
     ItemsFormSet = formset_factory(PurchaseOrderWizardItemForm, extra=0)
 
     initial = []
-    for item in purchase_request.purchaserequestitem_set.all():
+    for item in purchase_request.items.all():
         initial.append({
             'item': item
         })
@@ -366,9 +367,9 @@ def purchase_order_view(request, object_id):
             'extra_columns': [
                 {'name': _(u'Qty'), 'attribute': 'qty'},
                 {'name': _(u'Qty received'), 'attribute': 'received_qty'},
-                {'name': _(u'Agreed price'), 'attribute': lambda x: '$%s' % x.agreed_price if x.agreed_price else '-'},
+                {'name': _(u'Agreed price'), 'attribute': encapsulate(lambda x: '%s' % x.agreed_price if x.agreed_price else '-')},
                 {'name': _(u'Status'), 'attribute': 'status'},
-                {'name': _(u'Active'), 'attribute': lambda x: _(u'Open') if x.active else _(u'Closed')}
+                {'name': _(u'Active'), 'attribute': encapsulate(lambda x: _(u'Open') if x.active else _(u'Closed'))}
             ],
         }]
     }, context_instance=RequestContext(request))

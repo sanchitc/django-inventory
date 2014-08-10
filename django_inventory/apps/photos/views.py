@@ -4,10 +4,13 @@ import os
 
 from django.contrib import messages
 from django.contrib.contenttypes.models import ContentType
+from django.core.urlresolvers import reverse, reverse_lazy
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render_to_response, get_object_or_404
 from django.template import RequestContext
 from django.utils.translation import ugettext as _
+
+from common.utils import encapsulate
 
 from .conf import settings as photos_settings
 from .forms import PhotoForm
@@ -58,9 +61,9 @@ def generic_photos(request, model, object_id, max_photos=5, extra_context={}):
         'object_list': photos,
         'hide_object': True,
         'extra_columns': [
-            {'name': _(u'Photo'), 'attribute': lambda x: '<div class="gallery"><a href="%s"><img src="%s" /></a></div>' % (x.get_display_url(), x.get_thumbnail_url())},
-            {'name': _(u'Main photo'), 'attribute': lambda x: '<span class="famfam active famfam-accept"></span>' if x.main else '-'},
-            {'name': _(u'Title'), 'attribute': lambda x: x.title if x.title else '-'}
+            {'name': _(u'Photo'), 'attribute': encapsulate(lambda x: '<div class="gallery"><a href="%s"><img src="%s" /></a></div>' % (x.get_display_url(), x.get_thumbnail_url()))},
+            {'name': _(u'Main photo'), 'attribute': encapsulate(lambda x: '<span class="famfam active famfam-accept"></span>' if x.main else '-')},
+            {'name': _(u'Title'), 'attribute': encapsulate(lambda x: x.title if x.title else '-')}
         ],
     })
 

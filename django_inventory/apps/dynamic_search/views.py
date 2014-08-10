@@ -7,6 +7,8 @@ from django.template import RequestContext
 from django.utils.translation import ugettext as _
 from django.db.models import Q
 
+from common.utils import encapsulate
+
 from .api import search_list
 from .forms import SearchForm
 
@@ -77,7 +79,7 @@ def search(request):
                             'form': form,
                             'object_list': object_list,
                             'form_title': _(u'Search'),
-                            'extra_columns': [{'name':_(u'type'), 'attribute': lambda x:x._meta.verbose_name[0].upper() + x._meta.verbose_name[1:]}],
+                            'extra_columns': [{'name':_(u'type'), 'attribute': encapsulate(lambda x: x._meta.verbose_name[0].upper() + x._meta.verbose_name[1:])}],
                             'title': _(u'results with: %s') % query_string
                             },
                           context_instance=RequestContext(request))
