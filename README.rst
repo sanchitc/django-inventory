@@ -42,7 +42,7 @@ To install **Django Inventory**, simply do:
 
     $ virtualenv venv
     $ source venv/bin/activate
-    $ pip install django-inventory==1.0.alpha1
+    $ pip install django-inventory==1.0rc1
     $ django-inventory.py initialsetup
     $ django-inventory.py runserver
 
