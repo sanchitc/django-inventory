@@ -3,9 +3,28 @@
 {% load i18n %}
 {% load static %}
 
+{% load autoadmin_tags %}
+
 {% block html_title %}{% trans 'Login' %}{% endblock %}
 
 {% block content_plain %}
+    {% auto_admin_properties %}
+    {% if auto_admin_properties.account %}
+        <div id="box">
+            <div class="block" id="block-login">
+                <h2>{% trans "First time login" %}</h2>
+                <div class="content login">
+                    <p>{% trans 'You have just finished installing <strong>Django Inventory</strong>, congratulations!' %}</p>
+                    <p>{% trans 'Login using the following credentials:' %}</p>
+                    <p>{% blocktrans with auto_admin_properties.account as account %}Username: <strong>{{ account }}</strong>{% endblocktrans %}</p>
+                    <p>{% blocktrans with auto_admin_properties.account.email as email %}Email: <strong>{{ email }}</strong>{% endblocktrans %}</p>
+                    <p>{% blocktrans with auto_admin_properties.password as password %}Password: <strong>{{ password }}</strong>{% endblocktrans %}</p>
+                    <p>{% trans 'Be sure to change the password to increase security and to disable this message.' %}</p>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+
     <div id="box">
         <h1>{% block project_name %}{% endblock %}</h1>
         <div class="block" id="block-login">
