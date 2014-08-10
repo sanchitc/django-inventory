@@ -1,0 +1,62 @@
+[main]
+host = https://www.transifex.com
+
+[django-inventory.apps-assets]
+file_filter = django_inventory/apps/assets/locale/<lang>/LC_MESSAGES/django.po
+source_lang = en
+source_file = django_inventory/apps/assets/locale/en/LC_MESSAGES/django.po
+type = PO
+
+[django-inventory.apps-common]
+file_filter = django_inventory/apps/common/locale/<lang>/LC_MESSAGES/django.po
+source_lang = en
+source_file = django_inventory/apps/common/locale/en/LC_MESSAGES/django.po
+type = PO
+
+[django-inventory.apps-dynamic_search]
+file_filter = django_inventory/apps/dynamic_search/locale/<lang>/LC_MESSAGES/django.po
+source_lang = en
+source_file = django_inventory/apps/dynamic_search/locale/en/LC_MESSAGES/django.po
+type = PO
+
+[django-inventory.apps-generic_views]
+file_filter = django_inventory/apps/generic_views/locale/<lang>/LC_MESSAGES/django.po
+source_lang = en
+source_file = django_inventory/apps/generic_views/locale/en/LC_MESSAGES/django.po
+type = PO
+
+[django-inventory.apps-importer]
+file_filter = django_inventory/apps/importer/locale/<lang>/LC_MESSAGES/django.po
+source_lang = en
+source_file = django_inventory/apps/importer/locale/en/LC_MESSAGES/django.po
+type = PO
+
+[django-inventory.apps-inventory]
+file_filter = django_inventory/apps/inventory/locale/<lang>/LC_MESSAGES/django.po
+source_lang = en
+source_file = django_inventory/apps/inventory/locale/en/LC_MESSAGES/django.po
+type = PO
+
+[django-inventory.apps-main]
+file_filter = django_inventory/apps/main/locale/<lang>/LC_MESSAGES/django.po
+source_lang = en
+source_file = django_inventory/apps/main/locale/en/LC_MESSAGES/django.po
+type = PO
+
+[django-inventory.apps-movements]
+file_filter = django_inventory/apps/movements/locale/<lang>/LC_MESSAGES/django.po
+source_lang = en
+source_file = django_inventory/apps/movements/locale/en/LC_MESSAGES/django.po
+type = PO
+
+[django-inventory.apps-photos]
+file_filter = django_inventory/apps/photos/locale/<lang>/LC_MESSAGES/django.po
+source_lang = en
+source_file = django_inventory/apps/photos/locale/en/LC_MESSAGES/django.po
+type = PO
+
+[django-inventory.apps-web_theme]
+file_filter = django_inventory/apps/web_theme/locale/<lang>/LC_MESSAGES/django.po
+source_lang = en
+source_file = django_inventory/apps/web_theme/locale/en/LC_MESSAGES/django.po
+type = PO
