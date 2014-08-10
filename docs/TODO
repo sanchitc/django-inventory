@@ -1,25 +1,8 @@
-# 2011 Refactor list
-========================
-# Bring code up to latest Django version (1.2.4)                        - DONE
-# Eliminate CustomUser model                                            - DONE
-# New location based object (absorbs regional, section, dept, ect)      - DONE
-# Merge supplies with itemtemplate and allow for circular dependencies  - DONE
-# Implement django photologue and improve custom photo app              - DONE
-# Use new django messages system                                        - DONE
-# Eliminate inrepair/retired and implement user defined 'item states'   - DONE
-# Fix html and make it compliant (Remove <CENTER>, etc)                 - DONE
-# Skinable interface                                                    - DONE
-# Change to famfamfam icons                                             - DONE
-# Suppliers object                                                      - DONE
-# Split project into smaller apps                                       - DONE
-# Move to new per app settings.py file                                  - DONE
-# Credit all contributions and used software or media in about view or
-    CREDITS file                                                        - DONE
-# Smarter search                                                        - DONE
-# Allow import of CSV data                                              - DONE
-# Generate POs from PRs                                                 - DONE
-# Transfer items from POs to inventory                                  - DONE
-# Split tools menu into setup/tools                                     - DONE
+- Fix languange switching
+- Replace photolgue app
+- Add CSV importer
+
+
 # Warn users about item templates with no associated suppliers
 # Implement South for database migration
 # Insert license header to every .py file
@@ -28,10 +11,6 @@
 # Closed PO items can't be edited
 # Switch inventory balances and transactions, current balances at hand  - DONE
     are more useful
-
-Post release
-============================
-
 # Add budgeting tools to purchase requests
 # Renamed movements app to purchases
 # Ability to traverse items from the edit or detail view
@@ -47,7 +26,7 @@ Post release
 # User setting (theme, language, timezone, changepassword)
 # Add sorting by column to generic_list
 # Add manufacturing submenu (BOM, part list per item template)
-# Use separate model for supplies and add other fields(qty, req/optional) 
+# Use separate model for supplies and add other fields(qty, req/optional)
 # Transfer items from one inventory to another
 # Transfer asset from/to users
 # Add clear button to filter by form in generic_list or substitue
@@ -65,7 +44,7 @@ Post release
 # Deferred, deprecated
 ==========================
 # WISH LIST
-# - View item template/item main photo in list 
+# - View item template/item main photo in list
 # - Assign a new template to multiple users in one step
 # - Assign an item group to multiple users at a time
 # - Remind user to print forms when retiring items
