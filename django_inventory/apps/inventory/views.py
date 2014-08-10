@@ -67,7 +67,7 @@ class InventoryDetailView(GenericDetailView):
 
 class InventoryListView(GenericListView):
     extra_context = {
-        'title': _(u'inventories'),
+        'title': _(u'Inventories'),
         'extra_columns': [{'name':_(u'Location'), 'attribute':'location'}]
     }
     model = Inventory
@@ -129,6 +129,19 @@ class SupplierListView(GenericListView):
     model = Supplier
 
 
+class SupplierPurchaseOrdersListView(GenericListView):
+    def get_supplier(self):
+        return get_object_or_404(Supplier, pk=self.kwargs['pk'])
+
+    def get_queryset(self):
+        return self.get_supplier().purchase_orders.all()
+
+    def get_context_data(self, **kwargs):
+        context = super(SupplierPurchaseOrdersListView, self).get_context_data(**kwargs)
+        context['title'] = _(u'Purchase orders from supplier: %s') % self.get_supplier()
+        return context
+
+
 class SupplierUpdateView(GenericUpdateView):
     form_class = SupplierForm
     model = Supplier
@@ -148,6 +161,19 @@ class TemplateDeleteView(GenericDeleteView):
     success_url = reverse_lazy('template_list')
 
 
+class TemplateItemsListView(GenericListView):
+    def get_template(self):
+        return get_object_or_404(ItemTemplate, pk=self.kwargs['pk'])
+
+    def get_queryset(self):
+        return self.get_template().items.all()
+
+    def get_context_data(self, **kwargs):
+        context = super(TemplateItemsListView, self).get_context_data(**kwargs)
+        context['title'] = _(u'Assets that use the template: %s') % self.get_template()
+        return context
+
+
 class TemplateListView(GenericListView):
     extra_context = {'title': _(u'Item template')}
     model = ItemTemplate
@@ -155,7 +181,7 @@ class TemplateListView(GenericListView):
 
 class TemplateOrphanListView(GenericListView):
     extra_context = {'title': _('Orphan templates')}
-    queryset = ItemTemplate.objects.filter(item=None)
+    queryset = ItemTemplate.objects.filter(items=None)
 
 
 class TemplateUpdateView(GenericUpdateView):
@@ -171,6 +197,23 @@ class TemplateDetailView(GenericDetailView):
         'sidebar_subtemplates':['photos/generic_photos_subtemplate.html']
     }
     model = ItemTemplate
+
+
+class TransactionDeleteView(GenericDeleteView):
+    extra_context = {'object_name': _(u'Transaction')}
+    model = InventoryTransaction
+    success_url = reverse_lazy('inventory_list')
+
+
+class TransactionDetailView(GenericDetailView):
+    extra_context = {'object_name': _(u'Transaction')}
+    form_class = InventoryTransactionForm
+    model = InventoryTransaction
+
+
+class TransactionUpdateView(GenericUpdateView):
+    extra_context = {'object_name':_(u'Transaction')}
+    model = InventoryTransaction
 
 
 def supplier_assign_remove_itemtemplates(request, object_id):
@@ -222,18 +265,6 @@ def template_assign_remove_suppliers(request, object_id):
         item_name=_(u"suppliers"))
 
 
-def template_items(request, object_id):
-    template = get_object_or_404(ItemTemplate, pk=object_id)
-    return object_list(
-        request,
-        queryset = template.item_set.all(),
-        template_name = "generic_list.html",
-        extra_context=dict(
-            title = '%s: %s' % (_(u"assets that use the template"), template),
-        ),
-    )
-
-
 def inventory_list_transactions(request, object_id):
     inventory = get_object_or_404(Inventory, pk=object_id)
     form = InventoryForm_view(instance=inventory)
@@ -276,15 +307,3 @@ def inventory_create_transaction(request, object_id):
         'object': inventory,
         'title': _(u'Add new transaction') ,
     }, context_instance=RequestContext(request))
-
-
-def supplier_purchase_orders(request, object_id):
-    supplier = get_object_or_404(Supplier, pk=object_id)
-    return object_list(
-        request,
-        queryset = supplier.purchaseorder_set.all(),
-        template_name = "generic_list.html",
-        extra_context=dict(
-            title = '%s: %s' % (_(u"purchase orders from supplier"), supplier),
-        ),
-    )
