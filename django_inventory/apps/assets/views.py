@@ -44,8 +44,8 @@ class AssetDetailView(GenericDetailView):
 
 class AssetOrphanListView(GenericListView):
     extra_context = {'title': _(u'Orphan assets')}
+    list_filters = [location_filter]
     queryset = Item.objects.filter(person=None)
-    #list_filters=[location_filter],
 
 
 class AssetListView(GenericListView):
@@ -101,8 +101,8 @@ class PersonDetailView(GenericDetailView):
 
 class PersonListView(GenericListView):
     extra_context = {'title': _(u'People')}
+    list_filters = [location_filter]
     model = Person
-    #list_filters': [location_filter],
 
 
 class PersonUpdateView(GenericUpdateView):
@@ -170,14 +170,13 @@ def item_setstate(request, object_id, state_id):
     state = get_object_or_404(State, pk=state_id)
 
     if state.id in ItemState.objects.states_for_item(item).values_list('state', flat=True):
-        messages.error(request, _(u"This asset has already been marked as '%s'.") % state.name)
+        messages.error(request, _(u'This asset has already been marked as "%s".') % state.name)
         return HttpResponseRedirect(reverse('item_view', args=[item.id]))
 
     next = reverse('item_view', args=[item.id])
     data = {
-        #'next':next,
         'object':item,
-        'title':_(u"Are you sure you wish to mark this asset as '%s'?") % state.name,
+        'title':_(u'Are you sure you wish to mark this asset as "%s"?') % state.name,
     }
 
     if state.exclusive:
@@ -191,47 +190,46 @@ def item_setstate(request, object_id, state_id):
         else:
             exclusive_state = ItemState.objects.states_for_item(item).filter(state__exclusive=True)
             if exclusive_state:
-                messages.error(request, _(u"This asset has already been exclusively marked as '%s'.  Clear this state first.") % exclusive_state[0].state.name)
+                messages.error(request, _(u'This asset has already been exclusively marked as "%s".  Clear this state first.') % exclusive_state[0].state.name)
                 return HttpResponseRedirect(reverse('item_view', args=[item.id]))
 
 
         new = ItemState(item=item, state=state)
         new.save()
 
-        messages.success(request, _(u"The asset has been marked as '%s'.") % state.name)
+        messages.success(request, _(u'The asset has been marked as "%s".') % state.name)
 
         return HttpResponseRedirect(next)
 
-    return render_to_response('generic_confirm.html', data,
+    return render_to_response('generic_view/generic_confirm.html', data,
     context_instance=RequestContext(request))
 
 
 def item_remove_state(request, object_id, state_id):
     item = get_object_or_404(Item, pk=object_id)
     state = get_object_or_404(State, pk=state_id)
-    next = reverse("item_view", args=[item.id])
+    next = reverse('item_view', args=[item.id])
 
     item_state = ItemState.objects.filter(item=item, state=state)
     if not item_state:
-        messages.error(request, _(u"This asset is not marked as '%s'") % state.name)
+        messages.error(request, _(u'This asset is not marked as "%s"') % state.name)
         return HttpResponseRedirect(next)
 
     data = {
-        #'next':next,
         'object':item,
-        'title':_(u"Are you sure you wish to unmark this asset as '%s'?") % state.name,
+        'title':_(u'Are you sure you wish to unmark this asset as "%s"?') % state.name,
     }
     if request.method == 'POST':
         if item_state:
             try:
                 item_state.delete()
-                messages.success(request, _(u"The asset has been unmarked as '%s'.") % state.name)
+                messages.success(request, _(u'The asset has been unmarked as "%s".') % state.name)
             except:
-                messages.error(request, _(u"Unable to unmark this asset as '%s'") % state.name)
+                messages.error(request, _(u'Unable to unmark this asset as "%s"') % state.name)
 
         return HttpResponseRedirect(next)
 
-    return render_to_response('generic_confirm.html', data,
+    return render_to_response('generic_view/generic_confirm.html', data,
     context_instance=RequestContext(request))
 
 
@@ -248,5 +246,5 @@ def group_assign_remove_item(request, object_id):
         remove_method=obj.items.remove,
         left_list_title=_(u'Unassigned assets'),
         right_list_title=_(u'Assigned assets'),
-        item_name=_(u'assets'),
+        item_name=_(u'Assets'),
         list_filter=[location_filter])
