@@ -59,6 +59,7 @@ South==1.0
 django-compressor==1.4
 django-pagination==1.0.7
 django-photologue==2.3
+django-solo==1.0.5
 """.split()
 
 with open('README.rst') as f:
