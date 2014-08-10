@@ -15,6 +15,7 @@ from generic_views.views import (GenericCreateView, GenericDeleteView,
                                  GenericListView, GenericUpdateView)
 from inventory.models import Supplier, ItemTemplate, InventoryTransaction
 
+from . import purchase_order_state_filter
 from .forms import (PurchaseOrderForm, PurchaseOrderForm_view,
                     PurchaseOrderItem, PurchaseOrderItemForm,
                     PurchaseOrderItemTransferForm, PurchaseOrderWizardItemForm,
@@ -79,8 +80,8 @@ class PurchaseOrderListView(GenericListView):
             {'name': _(u'Active'), 'attribute': lambda x: _(u'Open') if x.active == True else _(u'Closed')}
         ]
     }
+    list_filters = [purchase_order_state_filter]
     model = PurchaseOrder
-    #'list_filters': [purchase_order_state_filter]},
 
 
 class PurchaseOrderUpdateView(GenericUpdateView):
