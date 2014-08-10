@@ -27,4 +27,4 @@ class GenericPhoto(ImageModel):
         verbose_name_plural = _(u'Photos')
 
     def __unicode__(self):
-        return "%s - %s" % (self.content_object, self.title)
+        return '%s - %s' % (self.content_object, self.title)
