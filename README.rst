@@ -5,8 +5,8 @@ Django Inventory
 
 Free Open Source Inventory and Fixed Assets Control System
 
-![screenshot](http://img814.imageshack.us/img814/5088/screenshot1fz.png)
-![screenshot2](http://img443.imageshack.us/img443/1486/screenshot2wu.png)
+.. image:: http://img814.imageshack.us/img814/5088/screenshot1fz.png
+.. image:: http://img443.imageshack.us/img443/1486/screenshot2wu.png
 
 `Translations`_
 
@@ -62,10 +62,8 @@ Contribute
 Author
 ------
 
-Roberto Rosario - [Twitter](http://twitter.com/#siloraptor) [E-mail](roberto.rosario.gonzalez at gmail)
+Roberto Rosario - **Twitter** http://twitter.com/#siloraptor **E-mail** roberto.rosario.gonzalez at gmail
 
-
-[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/rosarior/django-inventory/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
 
 .. _Translations: https://www.transifex.com/projects/p/django-inventory/
 .. _Apache 2.0 License: https://www.apache.org/licenses/LICENSE-2.0.txt
