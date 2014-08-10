@@ -20,6 +20,6 @@ TEMPLATE_CONTEXT_PROCESSORS += ('django.core.context_processors.debug',)
 WSGI_AUTO_RELOAD = True
 if 'debug_toolbar' in INSTALLED_APPS:
     MIDDLEWARE_CLASSES += ('debug_toolbar.middleware.DebugToolbarMiddleware',)
-    DEBUG_TOOLBAR_CONFIG={
-        'INTERCEPT_REDIRECTS' : False,
+    DEBUG_TOOLBAR_CONFIG = {
+        'INTERCEPT_REDIRECTS': False,
     }

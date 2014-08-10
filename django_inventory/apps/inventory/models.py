@@ -59,15 +59,13 @@ class Log(models.Model):
     timedate = models.DateTimeField(auto_now_add=True, verbose_name=_(u'Date & time'))
     action = models.CharField(max_length=32, verbose_name=_(u'Action'))
     description = models.TextField(verbose_name=_(u'Description'), null=True, blank=True)
-    #user = models.ForeignKey(User, unique=True)
 
     content_type = models.ForeignKey(ContentType)
     object_id = models.PositiveIntegerField()
     content_object = generic.GenericForeignKey()
 
     def __unicode__(self):
-#       return "%Y-%m-%d %H:%M:%S" % (self.timedate) #& user  && item
-        return "%s, %s - %s" % (self.timedate, self.action, self.content_object)
+        return '%s, %s - %s' % (self.timedate, self.action, self.content_object)
 
     @models.permalink
     def get_absolute_url(self):
@@ -123,7 +121,6 @@ class InventoryTransaction(models.Model):
 
 
 class Supplier(models.Model):
-    #TODO: Contact, extension
     name = models.CharField(max_length=32, verbose_name=_(u'Name'))
     address_line1 = models.CharField(max_length=64, null=True, blank=True, verbose_name=_(u'Address'))
     address_line2 = models.CharField(max_length=64, null=True, blank=True, verbose_name=_(u'Address'))

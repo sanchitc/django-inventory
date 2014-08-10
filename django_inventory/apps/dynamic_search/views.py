@@ -16,28 +16,28 @@ from .forms import SearchForm
 def normalize_query(query_string,
                     findterms=re.compile(r'"([^"]+)"|(\S+)').findall,
                     normspace=re.compile(r'\s{2,}').sub):
-    ''' Splits the query string in invidual keywords, getting rid of unecessary spaces
+    """ Splits the query string in invidual keywords, getting rid of unecessary spaces
         and grouping quoted words together.
         Example:
 
         >>> normalize_query('  some random  words "with   quotes  " and   spaces')
         ['some', 'random', 'words', 'with quotes', 'and', 'spaces']
 
-    '''
+    """
     return [normspace(' ', (t[0] or t[1]).strip()) for t in findterms(query_string)]
 
 
 def get_query(terms, search_fields):
-    ''' Returns a query, that is a combination of Q objects. That combination
+    """ Returns a query, that is a combination of Q objects. That combination
         aims to search keywords within a model by testing the given search fields.
 
-    '''
+    """
     query = None # Query to search for every search term
     #terms = normalize_query(query_string)
     for term in terms:
         or_query = None # Query to search for a given term in each field
         for field_name in search_fields:
-            q = Q(**{"%s__icontains" % field_name: term})
+            q = Q(**{'%s__icontains' % field_name: term})
             if or_query is None:
                 or_query = q
             else:
@@ -56,7 +56,7 @@ def search(request):
 
     if ('q' in request.GET) and request.GET['q'].strip():
         query_string = request.GET['q']
-        form = SearchForm(initial={'q':query_string})
+        form = SearchForm(initial={'q': query_string})
 
         terms = normalize_query(query_string)
 
@@ -72,12 +72,12 @@ def search(request):
         form = SearchForm()
 
     return render_to_response('dynamic_search/search_results.html', {
-                            'query_string':query_string,
-                            'found_entries':found_entries,
-                            'form':form,
-                            'object_list':object_list,
-                            'form_title':_(u'Search'),
-                            'extra_columns':[{'name':_(u'type'), 'attribute':lambda x:x._meta.verbose_name[0].upper() + x._meta.verbose_name[1:]}],
-                            'title':_(u'results with: %s') % query_string
+                            'query_string': query_string,
+                            'found_entries': found_entries,
+                            'form': form,
+                            'object_list': object_list,
+                            'form_title': _(u'Search'),
+                            'extra_columns': [{'name':_(u'type'), 'attribute': lambda x:x._meta.verbose_name[0].upper() + x._meta.verbose_name[1:]}],
+                            'title': _(u'results with: %s') % query_string
                             },
                           context_instance=RequestContext(request))

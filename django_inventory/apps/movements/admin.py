@@ -1,8 +1,10 @@
+from __future__ import absolute_import
+
 from django.contrib import admin
 
 from .models import (PurchaseRequestStatus, PurchaseRequest,
-        PurchaseRequestItem, PurchaseOrderStatus, PurchaseOrderItemStatus,
-        PurchaseOrder, PurchaseOrderItem)
+                     PurchaseRequestItem, PurchaseOrderStatus,
+                     PurchaseOrderItemStatus, PurchaseOrder, PurchaseOrderItem)
 
 
 class PurchaseRequestItemInline(admin.StackedInline):
@@ -13,7 +15,7 @@ class PurchaseRequestItemInline(admin.StackedInline):
 
 
 class PurchaseRequestAdmin(admin.ModelAdmin):
-    inlines = [PurchaseRequestItemInline,]
+    inlines = [PurchaseRequestItemInline]
 
 
 class PurchaseOrderItemInline(admin.StackedInline):
@@ -24,7 +26,7 @@ class PurchaseOrderItemInline(admin.StackedInline):
 
 
 class PurchaseOrderAdmin(admin.ModelAdmin):
-    inlines = [PurchaseOrderItemInline,]
+    inlines = [PurchaseOrderItemInline]
 
 
 admin.site.register(PurchaseRequestStatus)

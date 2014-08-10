@@ -83,14 +83,13 @@ class Item(models.Model):
             return None
 
     def get_nonowners(self):
-        return Person.objects.all().exclude(id__in=self.person_set.values_list('id',  flat=True))
+        return Person.objects.all().exclude(id__in=self.person_set.values_list('id', flat=True))
 
     def add_owner(self, person):
         if self not in person.inventory.all():
             person.inventory.add(self)
 
     def remove_owner(self, person):
-#       if self in person.inventory.all():
         person.inventory.remove(self)
 
     def states(self):
@@ -136,7 +135,6 @@ class Person(models.Model):
             second_last_name = ' %s' % self.second_last_name
         else:
             second_last_name = ''
-
 
         if self.second_name:
             second_name = ' %s' % self.second_name

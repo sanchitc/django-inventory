@@ -1,10 +1,12 @@
+from __future__ import absolute_import
+
 from django.utils.translation import ugettext_lazy as _
 
 from common.api import register_links, register_menu
 
 from .models import (PurchaseRequestStatus, PurchaseRequest,
-    PurchaseRequestItem, PurchaseOrderStatus, PurchaseOrderItemStatus,
-    PurchaseOrder, PurchaseOrderItem)
+                     PurchaseRequestItem, PurchaseOrderStatus,
+                     PurchaseOrderItemStatus, PurchaseOrder, PurchaseOrderItem)
 
 purchase_request_state_list = {'text': _('Purchase request states'), 'view': 'purchase_request_state_list', 'famfam': 'pencil_go'}
 purchase_request_state_create = {'text': _('Create new purchase request state'), 'view': 'purchase_request_state_create', 'famfam': 'pencil_add'}
@@ -51,7 +53,6 @@ jump_to_template = {'text': _(u'Template'), 'view': 'template_view', 'args': 'ob
 
 purchase_request_state_filter = {'name': 'purchase_request_status', 'title': _(u'Status'), 'queryset': PurchaseRequestStatus.objects.all(), 'destination': 'status'}
 purchase_order_state_filter = {'name': 'purchase_order_status', 'title': _(u'Status'), 'queryset': PurchaseOrderStatus.objects.all(), 'destination': 'status'}
-#purchase_order_active_filter = {'name':'purchase_order_active', 'title':_(u'active'), 'queryset':[True, False], 'destination':'active'}
 
 register_links(PurchaseRequestStatus, [purchase_request_state_update, purchase_request_state_delete])
 register_links(['purchase_request_state_create', 'purchase_request_state_list', 'purchase_request_state_update', 'purchase_request_state_delete'], [purchase_request_state_create], menu_name='sidebar')
@@ -77,6 +78,5 @@ register_links(['purchase_order_item_create'], [purchase_order_create], menu_nam
 register_menu([
     {'text': _('Purchases'), 'view': 'purchase_request_list', 'links': [
         purchase_request_list, purchase_order_list,
-    ],'famfam': 'basket','position': 4}]
+    ], 'famfam': 'basket', 'position': 4}]
 )
-

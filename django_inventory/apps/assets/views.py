@@ -175,13 +175,12 @@ def item_setstate(request, object_id, state_id):
 
     next = reverse('item_view', args=[item.id])
     data = {
-        'object':item,
-        'title':_(u'Are you sure you wish to mark this asset as "%s"?') % state.name,
+        'object': item,
+        'title': _(u'Are you sure you wish to mark this asset as "%s"?') % state.name,
     }
 
     if state.exclusive:
         data['message'] = _(u'Any other states this asset may be marked as, will be cleared.')
-
 
     if request.method == 'POST':
         if state.exclusive:
@@ -192,7 +191,6 @@ def item_setstate(request, object_id, state_id):
             if exclusive_state:
                 messages.error(request, _(u'This asset has already been exclusively marked as "%s".  Clear this state first.') % exclusive_state[0].state.name)
                 return HttpResponseRedirect(reverse('item_view', args=[item.id]))
-
 
         new = ItemState(item=item, state=state)
         new.save()
@@ -216,8 +214,8 @@ def item_remove_state(request, object_id, state_id):
         return HttpResponseRedirect(next)
 
     data = {
-        'object':item,
-        'title':_(u'Are you sure you wish to unmark this asset as "%s"?') % state.name,
+        'object': item,
+        'title': _(u'Are you sure you wish to unmark this asset as "%s"?') % state.name,
     }
     if request.method == 'POST':
         if item_state:
@@ -238,7 +236,7 @@ def group_assign_remove_item(request, object_id):
 
     return generic_assign_remove(
         request,
-        title=_(u'Assign assets to the group: <a href="%(url)s">%(obj)s</a>' % {'url':obj.get_absolute_url(), 'obj':obj}),
+        title=_(u'Assign assets to the group: <a href="%(url)s">%(obj)s</a>' % {'url': obj.get_absolute_url(), 'obj': obj}),
         obj=obj,
         left_list_qryset=Item.objects.exclude(itemgroup=obj),
         right_list_qryset=obj.items.all(),

@@ -61,9 +61,8 @@ class PurchaseOrderItemStatusUpdateView(GenericUpdateView):
     model = PurchaseOrderItemStatus
 
 
-
 class PurchaseOrderCreateView(GenericCreateView):
-    extra_context = {'object_name':_(u'Purchase order')}
+    extra_context = {'object_name': _(u'Purchase order')}
     form_class = PurchaseOrderForm
 
 
@@ -77,7 +76,7 @@ class PurchaseOrderListView(GenericListView):
     extra_context = {
         'title': _(u'Purchase orders'),
         'extra_columns': [
-            {'name': _(u'Active'), 'attribute': lambda x: _(u'Open') if x.active == True else _(u'Closed')}
+            {'name': _(u'Active'), 'attribute': lambda x: _(u'Open') if x.active else _(u'Closed')}
         ]
     }
     list_filters = [purchase_order_state_filter]
@@ -126,10 +125,10 @@ class PurchaseRequestListView(GenericListView):
     extra_context = {
         'title': _(u'Purchase requests'),
         'extra_columns': [
-            {'name': _(u'Active'), 'attribute': lambda x: _(u'Open') if x.active == True else _(u'Closed')}
+            {'name': _(u'Active'), 'attribute': lambda x: _(u'Open') if x.active else _(u'Closed')}
         ]
     }
-    #list_filters': [purchase_request_state_filter]},
+    list_filters = [purchase_request_state_filter]
 
 
 class PurchaseRequestUpdateView(GenericUpdateView):
@@ -160,7 +159,7 @@ class PurchaseRequestStateUpdateView(GenericUpdateView):
 
 
 class PurchaseRequestItemDeleteView(GenericDeleteView):
-    extra_context={'object_name': _(u'Purchase request item')}
+    extra_context = {'object_name': _(u'Purchase request item')}
     model = PurchaseRequestItem
 
     def get_success_url(self):
@@ -187,10 +186,10 @@ def purchase_request_view(request, object_id):
         'form': form,
         'subtemplates_dict': [
             {
-            'name': 'generic_views/generic_list_subtemplate.html',
-            'title': _(u'Purchase request items'),
-            'object_list': purchase_request.items.all(),
-            'extra_columns': [{'name': _(u'Qty'), 'attribute': 'qty'}],
+                'name': 'generic_views/generic_list_subtemplate.html',
+                'title': _(u'Purchase request items'),
+                'object_list': purchase_request.items.all(),
+                'extra_columns': [{'name': _(u'Qty'), 'attribute': 'qty'}],
             },
             #TODO: Used this instead when pagination namespace is supported
             #{
@@ -200,8 +199,7 @@ def purchase_request_view(request, object_id):
             #    'extra_columns':[{'name':_(u'issue data'), 'attribute':'issue_date'}],
             #}
         ]
-    },
-    context_instance=RequestContext(request))
+    }, context_instance=RequestContext(request))
 
 
 def purchase_request_item_create(request, object_id):
@@ -219,9 +217,8 @@ def purchase_request_item_create(request, object_id):
 
     return render_to_response('generic_views/generic_form.html', {
         'form': form,
-        'title': _(u'add new purchase request item') ,
-    },
-    context_instance=RequestContext(request))
+        'title': _(u'add new purchase request item'),
+    }, context_instance=RequestContext(request))
 
 
 def purchase_request_close(request, object_id):
@@ -232,7 +229,7 @@ def purchase_request_close(request, object_id):
         'title': _(u'Are you sure you wish to close the purchase request: %s?') % purchase_request,
     }
 
-    if purchase_request.active == False:
+    if not purchase_request.active:
         msg = _(u'This purchase request has already been closed.')
         messages.error(request, msg, fail_silently=True)
         return redirect(request.META['HTTP_REFERER'] if 'HTTP_REFERER' in request.META else purchase_request.get_absolute_url())
@@ -245,18 +242,18 @@ def purchase_request_close(request, object_id):
         return redirect(purchase_request.get_absolute_url())
 
     return render_to_response('generic_views/generic_confirm.html', data,
-    context_instance=RequestContext(request))
+        context_instance=RequestContext(request))
 
 
 def purchase_request_open(request, object_id):
     purchase_request = get_object_or_404(PurchaseRequest, pk=object_id)
 
     data = {
-        'object':purchase_request,
-        'title':_(u'Are you sure you wish to open the purchase request: %s?') % purchase_request,
+        'object': purchase_request,
+        'title': _(u'Are you sure you wish to open the purchase request: %s?') % purchase_request,
     }
 
-    if purchase_request.active == True:
+    if purchase_request.active:
         msg = _(u'This purchase request is already open.')
         messages.error(request, msg, fail_silently=True)
         return redirect(request.META['HTTP_REFERER'] if 'HTTP_REFERER' in request.META else purchase_request.get_absolute_url())
@@ -269,7 +266,7 @@ def purchase_request_open(request, object_id):
         return redirect(purchase_request.get_absolute_url())
 
     return render_to_response('generic_views/generic_confirm.html', data,
-    context_instance=RequestContext(request))
+        context_instance=RequestContext(request))
 
 
 def purchase_order_wizard(request, object_id):
@@ -282,7 +279,7 @@ def purchase_order_wizard(request, object_id):
 
     # A closed purchase orders may also mean a PO has been generated
     # previously from it by this wizard
-    if purchase_request.active == False:
+    if not purchase_request.active:
         msg = _(u'This purchase request is closed.')
         messages.error(request, msg, fail_silently=True)
         return redirect(request.META['HTTP_REFERER'] if 'HTTP_REFERER' in request.META else purchase_request.get_absolute_url())
@@ -314,9 +311,9 @@ def purchase_order_wizard(request, object_id):
                 supplier = get_object_or_404(Supplier, pk=form.cleaned_data['supplier'])
                 item_template = get_object_or_404(ItemTemplate, pk=form.cleaned_data['template_id'])
                 if supplier in suppliers:
-                    suppliers[supplier].append({'item_template':item_template, 'qty': form.cleaned_data['qty']})
+                    suppliers[supplier].append({'item_template': item_template, 'qty': form.cleaned_data['qty']})
                 else:
-                    suppliers[supplier] = [{'item_template':item_template, 'qty': form.cleaned_data['qty']}]
+                    suppliers[supplier] = [{'item_template': item_template, 'qty': form.cleaned_data['qty']}]
 
             # Create a new purchase order for each supplier in the
             # suppliers directory
@@ -329,7 +326,7 @@ def purchase_order_wizard(request, object_id):
                 new_pos.append(purchase_order)
                 purchase_order.save()
 
-                #Create the purchase order items
+                # Create the purchase order items
                 for po_item_data in po_items_data:
                     po_item = PurchaseOrderItem(
                         purchase_order=purchase_order,
@@ -371,12 +368,10 @@ def purchase_order_view(request, object_id):
                 {'name': _(u'Qty received'), 'attribute': 'received_qty'},
                 {'name': _(u'Agreed price'), 'attribute': lambda x: '$%s' % x.agreed_price if x.agreed_price else '-'},
                 {'name': _(u'Status'), 'attribute': 'status'},
-                {'name': _(u'Active'), 'attribute': lambda x: _(u'Open') if x.active == True else _(u'Closed')}
+                {'name': _(u'Active'), 'attribute': lambda x: _(u'Open') if x.active else _(u'Closed')}
             ],
-            #'extra_columns':[{'name':'type', 'attribute':lambda x:x._meta.verbose_name[0].upper() + x._meta.verbose_name[1:]}],
         }]
-    },
-    context_instance=RequestContext(request))
+    }, context_instance=RequestContext(request))
 
 
 def purchase_order_close(request, object_id):
@@ -391,7 +386,7 @@ def purchase_order_close(request, object_id):
     if items.filter(active=True):
         data['message'] = _(u'There are still open items.')
 
-    if purchase_order.active == False:
+    if not purchase_order.active:
         msg = _(u'This purchase order has already been closed.')
         messages.error(request, msg, fail_silently=True)
         return redirect(purchase_order.get_absolute_url())
@@ -405,7 +400,7 @@ def purchase_order_close(request, object_id):
         return redirect(purchase_order.get_absolute_url())
 
     return render_to_response('generic_views/generic_confirm.html', data,
-    context_instance=RequestContext(request))
+        context_instance=RequestContext(request))
 
 
 def purchase_order_open(request, object_id):
@@ -416,7 +411,7 @@ def purchase_order_open(request, object_id):
         'title': _(u'Are you sure you wish to open the purchase order: %s?') % purchase_order,
     }
 
-    if purchase_order.active == True:
+    if purchase_order.active:
         msg = _(u'This purchase order is already open.')
         messages.error(request, msg, fail_silently=True)
         return redirect(request.META['HTTP_REFERER'] if 'HTTP_REFERER' in request.META else purchase_order.get_absolute_url())
@@ -429,7 +424,7 @@ def purchase_order_open(request, object_id):
         return redirect(purchase_order.get_absolute_url())
 
     return render_to_response('generic_views/generic_confirm.html', data,
-    context_instance=RequestContext(request))
+        context_instance=RequestContext(request))
 
 
 def purchase_order_transfer(request, object_id):
@@ -440,7 +435,7 @@ def purchase_order_transfer(request, object_id):
 
     purchase_order = get_object_or_404(PurchaseOrder, pk=object_id)
 
-    if purchase_order.active == False:
+    if not purchase_order.active:
         msg = _(u'This purchase order has already been closed.')
         messages.error(request, msg, fail_silently=True)
         return redirect(request.META['HTTP_REFERER'] if 'HTTP_REFERER' in request.META else purchase_order.get_absolute_url())
@@ -458,27 +453,27 @@ def transfer_to_inventory(request, object_to_transfer):
     context = {}
 
     if isinstance(object_to_transfer, PurchaseOrderItem):
-        #A single purchase order item
+        # A single purchase order item
         context = {
-            'object_name':_(u'Purchase order item'),
+            'object_name': _(u'Purchase order item'),
             'title': _(u'Transfer and close the received purchase orders item: %s') % object_to_transfer,
         }
-        #Seed a formset of a single form
+        # Seed a formset of a single form
         initial = [{
             'qty': object_to_transfer.received_qty,
             'purchase_order_item': object_to_transfer,
             'purchase_order_item_id': object_to_transfer.id
         }]
     elif isinstance(object_to_transfer, PurchaseOrder):
-        #An entire purchase order
+        # An entire purchase order
         context = {
             'object_name': _(u'Purchase order'),
         }
-        #Seed the formset for each PO item
+        # Seed the formset for each PO item
         initial = []
         items = object_to_transfer.items.filter(active=True)
         if not items:
-            #There are no PO items active
+            # There are no PO items active
             context['title'] = _(u'All the items from this purchase order are either closed or transfered, continue to close the purchase order.')
         else:
             context['title'] = _(u'Transfer and close all the received items from the purchase order: %s') % object_to_transfer
@@ -489,17 +484,17 @@ def transfer_to_inventory(request, object_to_transfer):
                 'purchase_order_item': item,
                 'purchase_order_item_id': item.id
             })
-    #TODO: Raise error if object_to_transfer is neither a PO nor a PO item?
-    #else:
+    # TODO: Raise error if object_to_transfer is neither a PO nor a PO item?
+    # else:
     #    raise 'Unknown object type'
 
     if request.method == 'POST':
         formset = FormSet(request.POST)
         if formset.is_valid():
             if len(formset.forms):
-                #In case of empty PO or PO w/ no active items
+                # In case of empty PO or PO w/ no active items
                 for form in formset.forms:
-                    #Create inventory transaction for each PO item
+                    # Create inventory transaction for each PO item
                     purchase_order_item = get_object_or_404(PurchaseOrderItem, pk=form.cleaned_data['purchase_order_item_id'])
                     transaction = InventoryTransaction(
                         inventory=form.cleaned_data['inventory'],
@@ -523,7 +518,7 @@ def transfer_to_inventory(request, object_to_transfer):
                     messages.success(request, msg, fail_silently=True)
                     return redirect(object_to_transfer.get_absolute_url())
             else:
-                #Empty PO or PO w/ no active items
+                # Empty PO or PO w/ no active items
                 object_to_transfer.active = False
                 object_to_transfer.save()
                 msg = _(u'All the purchase order items were closed or already transfered, closing the purchase order.')
@@ -551,7 +546,7 @@ def purchase_order_item_transfer(request, object_id):
 
     purchase_order_item = get_object_or_404(PurchaseOrderItem, pk=object_id)
 
-    if purchase_order_item.active == False:
+    if not purchase_order_item.active:
         msg = _(u'This purchase order item has already been closed.')
         messages.error(request, msg, fail_silently=True)
         return redirect(request.META['HTTP_REFERER'] if 'HTTP_REFERER' in request.META else purchase_order_item.get_absolute_url())
@@ -566,11 +561,10 @@ def purchase_order_item_close(request, object_id):
         'title': _(u'Are you sure you wish close the purchase order item: %s') % purchase_order_item,
     }
 
-    if purchase_order_item.active == False:
+    if not purchase_order_item.active:
         msg = _(u'This purchase order item has already been closed.')
         messages.error(request, msg, fail_silently=True)
         return redirect(request.META['HTTP_REFERER'] if 'HTTP_REFERER' in request.META else purchase_order.get_absolute_url())
-
 
     if request.method == 'POST':
         purchase_order_item.active = False
@@ -580,24 +574,23 @@ def purchase_order_item_close(request, object_id):
         return redirect(purchase_order_item.get_absolute_url())
 
     return render_to_response('generic_views/generic_confirm.html', data,
-    context_instance=RequestContext(request))
+        context_instance=RequestContext(request))
 
 
 def purchase_order_item_create(request, object_id):
     purchase_order = get_object_or_404(PurchaseOrder, pk=object_id)
 
     if request.method == 'POST':
-        form = PurchaseOrderItemForm(request.POST)#, initial={'purchase_order':purchase_order})
+        form = PurchaseOrderItemForm(request.POST)
         if form.is_valid():
             form.save()
             msg = _(u'The purchase order item was created successfully.')
             messages.success(request, msg, fail_silently=True)
             return redirect(purchase_order.get_absolute_url())
     else:
-        form = PurchaseOrderItemForm(initial={'purchase_order':purchase_order})
+        form = PurchaseOrderItemForm(initial={'purchase_order': purchase_order})
 
     return render_to_response('generic_views/generic_form.html', {
         'form': form,
-        'title': _(u'Add new purchase order item') ,
-    },
-    context_instance=RequestContext(request))
+        'title': _(u'Add new purchase order item'),
+    }, context_instance=RequestContext(request))

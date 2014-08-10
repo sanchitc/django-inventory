@@ -1,3 +1,5 @@
+from __future__ import absolute_import
+
 from django import forms
 from django.utils.translation import ugettext_lazy as _
 
@@ -5,10 +7,7 @@ from generic_views.forms import DetailForm
 from inventory.models import Inventory
 
 from .models import (PurchaseRequest, PurchaseRequestItem, PurchaseOrder,
-    PurchaseOrderItem)
-
-
-#TODO: Remove auto_add_now from models and implement custom save method to include date
+                     PurchaseOrderItem)
 
 
 class PurchaseRequestForm(forms.ModelForm):
@@ -64,5 +63,5 @@ class PurchaseOrderWizardItemForm(forms.Form):
 class PurchaseOrderItemTransferForm(forms.Form):
     purchase_order_item_id = forms.CharField(widget=forms.HiddenInput)
     purchase_order_item = forms.CharField(label=_(u'Purchase order item'), widget=forms.TextInput(attrs={'readonly': 'readonly'}))
-    inventory = forms.ModelChoiceField(queryset = Inventory.objects.all(), help_text = _(u'Inventory that will receive the item.'))
+    inventory = forms.ModelChoiceField(queryset=Inventory.objects.all(), help_text=_(u'Inventory that will receive the item.'))
     qty = forms.CharField(label=_(u'Qty received'))

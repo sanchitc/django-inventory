@@ -68,14 +68,14 @@ class InventoryDetailView(GenericDetailView):
 class InventoryListView(GenericListView):
     extra_context = {
         'title': _(u'Inventories'),
-        'extra_columns': [{'name':_(u'Location'), 'attribute':'location'}]
+        'extra_columns': [{'name': _(u'Location'), 'attribute': 'location'}]
     }
     model = Inventory
     template_name = 'generic_views/generic_list.html'
 
 
 class InventoryUpdateView(GenericUpdateView):
-    extra_context = {'object_name':_(u'Inventory')}
+    extra_context = {'object_name': _(u'Inventory')}
     form_class = InventoryForm
     model = Inventory
 
@@ -92,7 +92,7 @@ class LocationDeleteView(GenericDeleteView):
 
 
 class LocationDetailView(GenericDetailView):
-    form_class =LocationForm_view
+    form_class = LocationForm_view
     model = Location
 
 
@@ -194,7 +194,7 @@ class TemplateDetailView(GenericDetailView):
     form_class = ItemTemplateForm_view
     extra_context = {
         'object_name': _(u'Item template'),
-        'sidebar_subtemplates':['photos/generic_photos_subtemplate.html']
+        'sidebar_subtemplates': ['photos/generic_photos_subtemplate.html']
     }
     model = ItemTemplate
 
@@ -212,7 +212,7 @@ class TransactionDetailView(GenericDetailView):
 
 
 class TransactionUpdateView(GenericUpdateView):
-    extra_context = {'object_name':_(u'Transaction')}
+    extra_context = {'object_name': _(u'Transaction')}
     model = InventoryTransaction
 
 
@@ -221,7 +221,7 @@ def supplier_assign_remove_itemtemplates(request, object_id):
 
     return generic_assign_remove(
         request,
-        title=_(u'Assign templates to the supplier: <a href="%(url)s">%(obj)s</a>' % {'url':obj.get_absolute_url(), 'obj':obj}),
+        title=_(u'Assign templates to the supplier: <a href="%(url)s">%(obj)s</a>' % {'url': obj.get_absolute_url(), 'obj': obj}),
         obj=obj,
         left_list_qryset=ItemTemplate.objects.exclude(suppliers=obj),
         right_list_qryset=obj.itemtemplate_set.all(),
@@ -238,7 +238,7 @@ def template_assign_remove_supply(request, object_id):
 
     return generic_assign_remove(
         request,
-        title=_(u'Assign supplies to the template: <a href="%(url)s">%(obj)s</a>' % {'url':obj.get_absolute_url(), 'obj':obj}),
+        title=_(u'Assign supplies to the template: <a href="%(url)s">%(obj)s</a>' % {'url': obj.get_absolute_url(), 'obj': obj}),
         obj=obj,
         left_list_qryset=ItemTemplate.objects.exclude(supplies=obj).exclude(pk=obj.pk),
         right_list_qryset=obj.supplies.all(),
@@ -254,7 +254,7 @@ def template_assign_remove_suppliers(request, object_id):
 
     return generic_assign_remove(
         request,
-        title=_(u'Assign suppliers to the template: <a href="%(url)s">%(obj)s</a>' % {'url':obj.get_absolute_url(), 'obj':obj}),
+        title=_(u'Assign suppliers to the template: <a href="%(url)s">%(obj)s</a>' % {'url': obj.get_absolute_url(), 'obj': obj}),
         obj=obj,
         left_list_qryset=Supplier.objects.exclude(itemtemplate=obj),
         right_list_qryset=obj.suppliers.all(),
@@ -280,9 +280,9 @@ def inventory_list_transactions(request, object_id):
                 'object_list': inventory.transactions.all(),
                 'hide_object': True,
                 'extra_columns': [
-                    {'name': _(u'Date'), 'attribute':'date'},
-                    {'name': _(u'Item'), 'attribute':'supply'},
-                    {'name': _(u'Qty'), 'attribute':'quantity'},
+                    {'name': _(u'Date'), 'attribute': 'date'},
+                    {'name': _(u'Item'), 'attribute': 'supply'},
+                    {'name': _(u'Qty'), 'attribute': 'quantity'},
                 ],
             }
         ]
@@ -293,7 +293,7 @@ def inventory_create_transaction(request, object_id):
     inventory = get_object_or_404(Inventory, pk=object_id)
 
     if request.method == 'POST':
-        form = InventoryTransactionForm(request.POST)#, initial={'inventory':inventory})
+        form = InventoryTransactionForm(request.POST)
         if form.is_valid():
             form.save()
             msg = _(u'The inventory transaction was created successfully.')
@@ -305,5 +305,5 @@ def inventory_create_transaction(request, object_id):
     return render_to_response('generic_views/generic_form.html', {
         'form': form,
         'object': inventory,
-        'title': _(u'Add new transaction') ,
+        'title': _(u'Add new transaction'),
     }, context_instance=RequestContext(request))

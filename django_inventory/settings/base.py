@@ -165,7 +165,7 @@ COMPRESS_ENABLED = False
 LOGIN_EXEMPT_URLS = (
     r'^favicon\.ico$',
     r'^about\.html$',
-    r'^legal/', # allow the entire /legal/* subsection
+    r'^legal/',  # allow the entire /legal/* subsection
     r'^static/',
 
     r'^accounts/register/$',

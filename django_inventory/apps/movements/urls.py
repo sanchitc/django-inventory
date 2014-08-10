@@ -67,7 +67,7 @@ urlpatterns = patterns('movements.views',
 
     url(r'^purchase/order/item/status/list/$', PurchaseOrderItemStatusListView.as_view(), name='purchase_order_item_state_list'),
     url(r'^purchase/order/item/status/create/$', PurchaseOrderItemStatusCreateView.as_view(), name='purchase_order_item_state_create'),
-    url(r'^purchase/order/item/status/(?P<pk>\d+)/update/$', PurchaseOrderItemStatusUpdateView.as_view(),name='purchase_order_item_state_update'),
+    url(r'^purchase/order/item/status/(?P<pk>\d+)/update/$', PurchaseOrderItemStatusUpdateView.as_view(), name='purchase_order_item_state_update'),
     url(r'^purchase/order/item/status/(?P<pk>\d+)/delete/$', PurchaseOrderItemStatusDeleteView.as_view(), name='purchase_order_item_state_delete'),
 
     url(r'^purchase/order/item/(?P<pk>\d+)/update/$', PurchaseOrderItemUpdateView.as_view(), name='purchase_order_item_update'),

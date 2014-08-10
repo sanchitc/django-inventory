@@ -5,11 +5,6 @@ from dynamic_search.api import register
 from inventory.models import Supplier, ItemTemplate
 
 
-"""
-TODO: PR Change Order model ?
-"""
-
-
 class PurchaseRequestStatus(models.Model):
     name = models.CharField(verbose_name=_(u'Name'), max_length=32)
 
@@ -34,8 +29,6 @@ class PurchaseRequest(models.Model):
     status = models.ForeignKey(PurchaseRequestStatus, null=True, blank=True, verbose_name=_(u'Status'))
     originator = models.CharField(max_length=64, null=True, blank=True, verbose_name=_(u'Originator'))
     notes = models.TextField(null=True, blank=True, verbose_name=_(u'Notes'))
-
-    #account number
 
     class Meta:
         verbose_name = _(u'Purchase request')
