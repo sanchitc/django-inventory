@@ -85,7 +85,7 @@ class PurchaseOrderStatus(models.Model):
 class PurchaseOrder(models.Model):
     user_id = models.CharField(max_length=32, null=True, blank=True, verbose_name=_(u'User defined ID'))
     purchase_request = models.ForeignKey(PurchaseRequest, null=True, blank=True, verbose_name=_(u'Purchase request'))
-    supplier = models.ForeignKey(Supplier, verbose_name=_(u'Supplier'))
+    supplier = models.ForeignKey(Supplier, related_name='purchase_orders', verbose_name=_(u'Supplier'))
     issue_date = models.DateField(auto_now_add=True, verbose_name=_(u'Issue date'))
     required_date = models.DateField(null=True, blank=True, verbose_name=_(u'Date required'))
     active = models.BooleanField(default=True, verbose_name=_(u'Active'))
