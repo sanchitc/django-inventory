@@ -14,8 +14,6 @@ inventory_create_transaction = {'text':_('Add transaction'), 'view': 'inventory_
 inventory_view = {'text':_(u'Details'), 'view': 'inventory_view', 'args': 'object.id', 'famfam': 'package_go'}
 inventory_list_transactions = {'text':_(u'Inventory transactions'), 'view': 'inventory_list_transactions', 'args': 'object.id', 'famfam': 'book_go'}
 
-inventory_transaction_list = {'text':_('View all transactions'), 'view': 'inventory_transaction_list', 'famfam': 'book_go'}
-inventory_transaction_create = {'text':_('Create new transaction'), 'view': 'inventory_transaction_create', 'famfam': 'book_add'}
 inventory_transaction_update = {'text':_(u'Edit'), 'view': 'inventory_transaction_update', 'args': 'object.id', 'famfam': 'book_add'}
 inventory_transaction_delete = {'text':_(u'Delete'), 'view': 'inventory_transaction_delete', 'args': 'object.id', 'famfam': 'book_delete'}
 inventory_transaction_view = {'text':_(u'Details'), 'view': 'inventory_transaction_view', 'args': 'object.id', 'famfam': 'book_go'}
@@ -58,11 +56,11 @@ register_links(ItemTemplate, [template_update, template_delete, template_photos,
 register_links(['supplier_list', 'supplier_create', 'supplier_update', 'supplier_view', 'supplier_delete', 'supplier_assign_itemtemplates'], [supplier_create], menu_name='sidebar')
 register_links(Supplier, [supplier_update, supplier_delete, supplier_assign_itemtemplate, supplier_purchase_orders])
 
-register_links(['inventory_view', 'inventory_list', 'inventory_create', 'inventory_update', 'inventory_delete', 'inventory_transaction_list'], [inventory_create], menu_name='sidebar')
+register_links(['inventory_view', 'inventory_list', 'inventory_create', 'inventory_update', 'inventory_delete'], [inventory_create], menu_name='sidebar')
 register_links(Inventory, [inventory_update, inventory_delete, inventory_list_transactions, inventory_create_transaction])
 register_links(Inventory, [inventory_view], menu_name='sidebar')
 
-register_links(['inventory_transaction_list', 'inventory_transaction_create', 'inventory_transaction_update', 'inventory_transaction_delete', 'inventory_transaction_view'], [inventory_create_transaction], menu_name='sidebar')
+register_links(['inventory_transaction_update', 'inventory_transaction_delete', 'inventory_transaction_view'], [inventory_create_transaction], menu_name='sidebar')
 register_links(InventoryTransaction, [inventory_transaction_view, inventory_transaction_update, inventory_transaction_delete, jump_to_template])
 register_links(InventoryTransaction, [jump_to_inventory], menu_name='sidebar')
 
