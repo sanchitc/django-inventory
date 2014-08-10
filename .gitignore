@@ -1,8 +1,8 @@
 *.orig
 *.pyc
 *.pyo
-site_media/photologue/photos/*
-site_media/photologue/photos/cache/*
+django_inventory/media/photologue/photos/*
+django_inventory/media/photologue/photos/cache/*
 *.sqlite?
 settings_local.py
 *egg-info*
