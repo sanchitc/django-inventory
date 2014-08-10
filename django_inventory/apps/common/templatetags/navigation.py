@@ -1,14 +1,16 @@
+from __future__ import absolute_import
+
 import types
 
 from django.conf import settings
-from django.core.urlresolvers import reverse, NoReverseMatch
+from django.core.urlresolvers import resolve, reverse, NoReverseMatch
 from django.core.urlresolvers import (RegexURLResolver, RegexURLPattern,
-    Resolver404, get_resolver)
+                                      Resolver404, get_resolver)
 from django.template import (TemplateSyntaxError, Library,
-    VariableDoesNotExist, Node, Variable)
+                             VariableDoesNotExist, Node, Variable)
 from django.utils.text import unescape_string_literal
 
-from common.api import object_navigation, menu_links as menu_navigation
+from ..api import object_navigation, menu_links as menu_navigation
 
 register = Library()
 
@@ -34,11 +36,11 @@ def process_links(links, view_name, url):
 
         items.append(
             {
-                'first':count==0,
-                'active':active,
-                'url':item_view and reverse(item_view) or item_url or '#',
-                'text':unicode(item['text']),
-                'famfam':'famfam' in item and item['famfam'],
+                'first': count == 0,
+                'active': active,
+                'url': item_view and reverse(item_view) or item_url or '#',
+                'text': unicode(item['text']),
+                'famfam': 'famfam' in item and item['famfam'],
             }
         )
     return items, active_item
@@ -63,56 +65,17 @@ class NavigationNode(Node):
 @register.tag
 def main_navigation(parser, token):
     args = token.split_contents()
-
-#    if len(args) != 3 or args[1] != 'as':
-#        raise TemplateSyntaxError("'get_all_states' requires 'as variable' (got %r)" % args)
-
-    #return NavigationNode(variable=args[2], navigation=navigation)
     return NavigationNode(navigation=menu_navigation)
 
 
-#http://www.djangosnippets.org/snippets/1378/
-__all__ = ('resolve_to_name',)
-
-def _pattern_resolve_to_name(self, path):
-    match = self.regex.search(path)
-    if match:
-        name = ""
-        if self.name:
-            name = self.name
-        elif hasattr(self, '_callback_str'):
-            name = self._callback_str
-        else:
-            name = "%s.%s" % (self.callback.__module__, self.callback.func_name)
-        return name
-
-def _resolver_resolve_to_name(self, path):
-    tried = []
-    match = self.regex.search(path)
-    if match:
-        new_path = path[match.end():]
-        for pattern in self.url_patterns:
-            try:
-                name = pattern.resolve_to_name(new_path)
-            except Resolver404, e:
-                tried.extend([(pattern.regex.pattern + '   ' + t) for t in e.args[0]['tried']])
-            else:
-                if name:
-                    return name
-                tried.append(pattern.regex.pattern)
-        raise Resolver404, {'tried': tried, 'path': new_path}
-
-
-# here goes monkeypatching
-RegexURLPattern.resolve_to_name = _pattern_resolve_to_name
-RegexURLResolver.resolve_to_name = _resolver_resolve_to_name
-
 def resolve_to_name(path, urlconf=None):
-    return get_resolver(urlconf).resolve_to_name(path)
+    return get_resolver(urlconf).resolve(path)
+
 
 @register.filter
 def resolve_url_name(value):
     return resolve_to_name(value)
+
 
 def resolve_arguments(context, src_args):
     args = []
@@ -160,9 +123,10 @@ def resolve_links(context, links, current_view, current_path):
 
     return context_links
 
+
 def _get_object_navigation_links(context, menu_name=None):
     current_path = Variable('request').resolve(context).META['PATH_INFO']
-    current_view = resolve_to_name(current_path)#.get_full_path())
+    current_view = resolve_to_name(current_path)
     context_links = []
 
     try:
@@ -219,11 +183,10 @@ def get_object_navigation_links(parser, token):
     return GetNavigationLinks(*args[1:])
 
 
+@register.inclusion_tag('generic_views/generic_navigation.html', takes_context=True)
 def object_navigation_template(context):
     return {
-        'horizontal':True,
-        'object_navigation_links':_get_object_navigation_links(context)
+        'horizontal': True,
+        'object_navigation_links': _get_object_navigation_links(context)
     }
     return new_context
-register.inclusion_tag('generic_views/generic_navigation.html', takes_context=True)(object_navigation_template)
-
