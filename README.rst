@@ -62,7 +62,7 @@ Contribute
 Author
 ------
 
-Roberto Rosario - **Twitter** http://twitter.com/#siloraptor **E-mail** roberto.rosario.gonzalez at gmail
+Roberto Rosario - **Twitter** http://twitter.com/siloraptor **E-mail** roberto.rosario.gonzalez at gmail
 
 
 .. _Translations: https://www.transifex.com/projects/p/django-inventory/
