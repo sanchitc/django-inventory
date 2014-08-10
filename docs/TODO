@@ -1,7 +1,7 @@
 - Fix languange switching
 - Replace photolgue app
 - Add CSV importer
-
+- Replace jQuery lightBox plugin
 
 # Warn users about item templates with no associated suppliers
 # Implement South for database migration
