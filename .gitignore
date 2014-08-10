@@ -7,3 +7,4 @@ site_media/photologue/photos/cache/*
 settings_local.py
 *egg-info*
 .coverage
+dist/
