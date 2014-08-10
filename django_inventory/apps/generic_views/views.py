@@ -55,7 +55,30 @@ class GenericDetailView(ExtraContextMixin, DetailView):
 
 
 class GenericListView(ExtraContextMixin, ListView):
+    filter_form = None
+    filters = None
+    list_filters = None
     template_name = 'generic_views/generic_list.html'
+
+    def get(self, request, *args, **kwargs):
+        if self.list_filters:
+            self.filter_form, self.filters = add_filter(self.request, self.list_filters)
+        return super(GenericListView, self).get(request, *args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        context = super(GenericListView, self).get_context_data(**kwargs)
+
+        if self.filter_form:
+            context['filter_form'] = self.filter_form
+
+        return context
+
+    def get_queryset(self):
+        queryset = super(GenericListView, self).get_queryset()
+        if self.filters:
+            return queryset.filter(*self.filters)
+        else:
+            return queryset
 
 
 class GenericUpdateView(ExtraContextMixin, UpdateView):
@@ -76,40 +99,6 @@ def add_filter(request, list_filters):
         filter_form = FilterForm(list_filters)
 
     return filter_form, filters
-
-
-def generic_confirm(request, _view, _title=None, _model=None, _object_id=None, _message='', *args, **kwargs):
-    if request.method == 'POST':
-        form = GenericConfirmForm(request.POST)
-        if form.is_valid():
-            if hasattr(_view, '__call__'):
-                return _view(request, *args, **kwargs)
-            else:
-                return HttpResponseRedirect(reverse(_view, args=args, kwargs=kwargs))
-
-    data = {}
-
-    try:
-        object = _model.objects.get(pk=kwargs[_object_id])
-        data['object'] = object
-    except:
-        pass
-
-    try:
-        data['title'] = _title
-    except:
-        pass
-
-    try:
-        data['message'] = _message
-    except:
-        pass
-
-    form=GenericConfirmForm()
-
-    return render_to_response('generic_views/generic_confirm.html',
-        data,
-        context_instance=RequestContext(request))
 
 
 def generic_assign_remove(request, title, obj, left_list_qryset, left_list_title, right_list_qryset, right_list_title, add_method, remove_method, item_name, list_filter=None):
@@ -140,11 +129,11 @@ def generic_assign_remove(request, title, obj, left_list_qryset, left_list_title
     form = GenericAssignRemoveForm(left_list_qryset=left_list_qryset, right_list_qryset=right_list_qryset, left_filter=left_filter)
 
     return render_to_response('generic_views/generic_assign_remove.html', {
-    'form':form,
-    'object':obj,
-    'title':title,
-    'left_list_title':left_list_title,
-    'right_list_title':right_list_title,
-    'filter_form':filter_form,
+    'form': form,
+    'object': obj,
+    'title': title,
+    'left_list_title': left_list_title,
+    'right_list_title': right_list_title,
+    'filter_form': filter_form,
     },
     context_instance=RequestContext(request))
