@@ -52,7 +52,7 @@ class NavigationNode(Node):
 
     def render(self, context):
         request = Variable('request').resolve(context)
-        view_name = resolve_to_name(request.META['PATH_INFO'])
+        view_name = resolve(request.META['PATH_INFO']).view_name
 
         main_items, active_item = process_links(links=self.navigation, view_name=view_name, url=request.META['PATH_INFO'])
         context['navigation_main_links'] = main_items
@@ -66,15 +66,6 @@ class NavigationNode(Node):
 def main_navigation(parser, token):
     args = token.split_contents()
     return NavigationNode(navigation=menu_navigation)
-
-
-def resolve_to_name(path, urlconf=None):
-    return get_resolver(urlconf).resolve(path)
-
-
-@register.filter
-def resolve_url_name(value):
-    return resolve_to_name(value)
 
 
 def resolve_arguments(context, src_args):
@@ -126,7 +117,7 @@ def resolve_links(context, links, current_view, current_path):
 
 def _get_object_navigation_links(context, menu_name=None):
     current_path = Variable('request').resolve(context).META['PATH_INFO']
-    current_view = resolve_to_name(current_path)
+    current_view = resolve(current_path).view_name
     context_links = []
 
     try:
