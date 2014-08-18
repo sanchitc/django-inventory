@@ -4,6 +4,7 @@
 django_inventory/media/photologue/photos/*
 django_inventory/media/photologue/photos/cache/*
 *.sqlite?
+*.sqlite
 settings_local.py
 *egg-info*
 .coverage
