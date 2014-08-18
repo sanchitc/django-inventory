@@ -9,3 +9,4 @@ settings_local.py
 *egg-info*
 .coverage
 dist/
+/django-inventory/settings/local.py
