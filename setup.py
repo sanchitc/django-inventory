@@ -71,7 +71,7 @@ with open('LICENSE') as f:
 
 setup(
     author='Roberto Rosario',
-    author_email='roberto.rosario@gmail.com',
+    author_email='roberto.rosario.gonzalez@gmail.com',
     classifiers=[
         'Development Status :: 5 - Production/Stable',
         'Environment :: Web Environment',
