@@ -1,0 +1,22 @@
+language: python
+python:
+  - 2.7
+  - 2.6
+before_install:
+  - sudo apt-get update -qq
+  - sudo apt-get install -qq python-dev gcc libjpeg-dev libpng-dev
+install:
+  - "pip install -r requirements/testing.txt"
+script:
+  - coverage run --source=inventory manage.py test inventory
+after_success:
+  - coveralls
+branches:
+  only:
+    - master
+notifications:
+  email:
+    recipients:
+    - roberto.rosario@mayan-edms.com
+    on_success: never
+    on_failure: always
