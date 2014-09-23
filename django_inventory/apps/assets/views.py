@@ -199,7 +199,7 @@ def item_setstate(request, object_id, state_id):
 
         return HttpResponseRedirect(next)
 
-    return render_to_response('generic_view/generic_confirm.html', data,
+    return render_to_response('generic_views/generic_confirm.html', data,
     context_instance=RequestContext(request))
 
 
@@ -227,7 +227,7 @@ def item_remove_state(request, object_id, state_id):
 
         return HttpResponseRedirect(next)
 
-    return render_to_response('generic_view/generic_confirm.html', data,
+    return render_to_response('generic_views/generic_confirm.html', data,
     context_instance=RequestContext(request))
 
 
