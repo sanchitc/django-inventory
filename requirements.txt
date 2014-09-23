@@ -1,2 +1,2 @@
 -r requirements/common.txt
-
+Django==1.6.5
